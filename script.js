@@ -17,27 +17,40 @@ async function fetchData() {
 }
 
 async function renderPokemon() {
+  const cardContainer = document.getElementById('card_container');
+  cardContainer.classList.add('fading');
+  await new Promise((resolve) => setTimeout(resolve, 300));
+
   const pokemons = await fetchData();
   let html = '';
 
   for (let i = 0; i < pokemons.length; i++) {
     const detailResponse = await fetch(pokemons[i].url);
     const detailData = await detailResponse.json();
-    const imgUrl = detailData.sprites.front_default;
+    const imgUrl = detailData.sprites.back_default;
+    const imgFrontUrl = detailData.sprites.front_default;
 
     html += `
-      <div class="card">
-        <div class="front-content">
-          <img src="${imgUrl}">
-          <p>${pokemons[i].name}</p>
-        </div>
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img class="img-back" src="${imgUrl}">
+        <p class="title">${pokemons[i].name}</p>
       </div>
-    `;
+      <div class="flip-card-back">
+        <img class="img-front" src="${imgFrontUrl}">
+        <p class="title">${pokemons[i].name}</p>
+      </div>
+    </div>
+  </div>
+`;
   }
-  document.getElementById('card_container').innerHTML = html;
+  cardContainer.innerHTML = html;
 
   document.getElementById('prev-btn').disabled = offset === 0;
   document.getElementById('next-btn').disabled = offset + limit >= maxPokemon;
+
+  setTimeout(() => cardContainer.classList.remove('fading'), 250);
 }
 
 function nextPage() {

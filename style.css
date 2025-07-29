@@ -3,6 +3,12 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 16px;
+  transition: opacity 0.3s;
+  opacity: 1;
+}
+
+#card_container.fading {
+  opacity: 0;
 }
 
 main {
