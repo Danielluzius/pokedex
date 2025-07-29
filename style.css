@@ -1,0 +1,11 @@
+#card_container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
+.pokemon-front-image {
+  width: 120px;
+  height: auto;
+}

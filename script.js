@@ -2,14 +2,18 @@ function init() {
   showPokemon();
 }
 
+let offset = 0;
+const limit = 27;
+const maxPokemon = 151;
+
 async function fetchData() {
-  try {
-    const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=10'); // Array mit 10 Pokémon
-    const data = await response.json();
-    return data.results;
-  } catch (error) {
-    console.error('Fetch error:', error);
+  let actualLimit = limit;
+  if (offset + limit > maxPokemon) {
+    actualLimit = maxPokemon - offset;
   }
+  const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${actualLimit}&offset=${offset}`);
+  const data = await response.json();
+  return data.results;
 }
 
 async function showPokemon() {
@@ -21,7 +25,7 @@ async function showPokemon() {
     const detailData = await detailResponse.json();
     const imgUrl = detailData.sprites.front_default;
 
-    html += /*html*/ `
+    html += `
       <div class="card">
         <div class="front-content">
           <img src="${imgUrl}">
@@ -31,6 +35,23 @@ async function showPokemon() {
     `;
   }
   document.getElementById('card_container').innerHTML = html;
+
+  document.getElementById('prev-btn').disabled = offset === 0;
+  document.getElementById('next-btn').disabled = offset + limit >= maxPokemon;
 }
 
-showPokemon();
+function nextPage() {
+  if (offset + limit < maxPokemon) {
+    offset += limit;
+    showPokemon();
+  }
+}
+
+function prevPage() {
+  if (offset - limit >= 0) {
+    offset -= limit;
+  } else {
+    offset = 0;
+  }
+  showPokemon();
+}
