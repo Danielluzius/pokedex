@@ -1,0 +1,100 @@
+<svg width="100%" height="100%" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg" style="background:#19202a">
+  <style>
+    .pokeball1 { opacity: 0.08; transform-origin: 400px 400px; animation: rotate1 90s linear infinite;}
+    .pokeball2 { opacity: 0.08; transform-origin: 680px 650px; animation: rotate2 60s linear infinite reverse;}
+    @keyframes rotate1 { 0% { transform: rotate(0deg);} 100% { transform: rotate(360deg);} }
+    @keyframes rotate2 { 0% { transform: rotate(0deg);} 100% { transform: rotate(360deg);} }
+    .line1 { opacity: 0.06; animation: moveline1 22s linear infinite; }
+    .line2 { opacity: 0.04; animation: moveline2 18s linear infinite; }
+    .line3 { opacity: 0.05; animation: moveline3 25s linear infinite reverse; }
+    .line4 { opacity: 0.04; animation: moveline4 31s linear infinite reverse; }
+    .line5 { opacity: 0.04; animation: moveline5 21s linear infinite;}
+    .line6 { opacity: 0.07; animation: moveline6 28s linear infinite reverse;}
+    @keyframes moveline1 { 0%{x:800;} 100%{x:-200;} }
+    @keyframes moveline2 { 0%{x:750;} 100%{x:-250;} }
+    @keyframes moveline3 { 0%{x:-180;} 100%{x:850;} }
+    @keyframes moveline4 { 0%{x:-100;} 100%{x:900;} }
+    @keyframes moveline5 { 0%{x:0;} 100%{x:800;} }
+    @keyframes moveline6 { 0%{x:650;} 100%{x:-350;} }
+  </style>
+  <!-- Pokeball 1 (Zentrum)-->
+  <g class="pokeball1">
+    <circle cx="400" cy="400" r="120" stroke="white" stroke-width="10"/>
+    <rect x="280" y="395" width="240" height="10" fill="white"/>
+    <circle cx="400" cy="400" r="40" stroke="white" stroke-width="9"/>
+    <circle cx="400" cy="400" r="17" fill="none" stroke="white" stroke-width="4"/>
+  </g>
+  <!-- Pokeball 2 (weit unten rechts) -->
+  <g class="pokeball2">
+    <circle cx="680" cy="650" r="60" stroke="white" stroke-width="7"/>
+    <rect x="620" y="646" width="120" height="7" fill="white"/>
+    <circle cx="680" cy="650" r="19" stroke="white" stroke-width="5"/>
+    <circle cx="680" cy="650" r="9" fill="none" stroke="white" stroke-width="2.5"/>
+  </g>
+  <!-- Hexagons Cluster: Oben rechts, jetzt weiter auseinander -->
+<g>
+  <!-- Zentrale Wabe oben rechts -->
+  <polygon points="660,100 670,117 660,134 640,134 630,117 640,100"
+           stroke="white" stroke-width="3" fill="none">
+    <animate attributeName="opacity" values="0.04;0.13;0.04" keyTimes="0;0.5;1" dur="9s" repeatCount="indefinite" begin="0s"/>
+  </polygon>
+  <!-- Rechts daneben -->
+  <polygon points="682,117 692,134 682,151 662,151 652,134 662,117"
+           stroke="white" stroke-width="3" fill="none">
+    <animate attributeName="opacity" values="0.04;0.13;0.04" keyTimes="0;0.5;1" dur="11s" repeatCount="indefinite" begin="0.4s"/>
+  </polygon>
+  <!-- Unten links daneben -->
+  <polygon points="648,134 658,151 648,168 628,168 618,151 628,134"
+           stroke="white" stroke-width="3" fill="none">
+    <animate attributeName="opacity" values="0.04;0.13;0.04" keyTimes="0;0.5;1" dur="10s" repeatCount="indefinite" begin="0.7s"/>
+  </polygon>
+</g>
+
+<!-- Hexagons Cluster: Unten links, weiter auseinander -->
+<g>
+  <!-- Zentrale Wabe unten links -->
+  <polygon points="120,670 130,687 120,704 100,704 90,687 100,670"
+           stroke="white" stroke-width="3" fill="none">
+    <animate attributeName="opacity" values="0.03;0.12;0.03" keyTimes="0;0.5;1" dur="8s" repeatCount="indefinite" begin="0.2s"/>
+  </polygon>
+  <!-- Rechts daneben -->
+  <polygon points="142,687 152,704 142,721 122,721 112,704 122,687"
+           stroke="white" stroke-width="3" fill="none">
+    <animate attributeName="opacity" values="0.03;0.12;0.03" keyTimes="0;0.5;1" dur="9s" repeatCount="indefinite" begin="0.6s"/>
+  </polygon>
+  <!-- Links daneben -->
+  <polygon points="98,687 108,704 98,721 78,721 68,704 78,687"
+           stroke="white" stroke-width="3" fill="none">
+    <animate attributeName="opacity" values="0.03;0.12;0.03" keyTimes="0;0.5;1" dur="12s" repeatCount="indefinite" begin="1s"/>
+  </polygon>
+  <!-- Noch eine nach unten rechts -->
+  <polygon points="132,704 142,721 132,738 112,738 102,721 112,704"
+           stroke="white" stroke-width="3" fill="none">
+    <animate attributeName="opacity" values="0.03;0.11;0.03" keyTimes="0;0.5;1" dur="13s" repeatCount="indefinite" begin="1.4s"/>
+  </polygon>
+</g>
+
+<!-- Einzelne Hexagons verteilt -->
+<g>
+  <polygon points="700,300 710,317 700,334 680,334 670,317 680,300"
+           stroke="white" stroke-width="2" fill="none">
+    <animate attributeName="opacity" values="0.03;0.08;0.03" keyTimes="0;0.5;1" dur="11s" repeatCount="indefinite" begin="0.9s"/>
+  </polygon>
+  <polygon points="150,200 160,217 150,234 130,234 120,217 130,200"
+           stroke="white" stroke-width="2" fill="none">
+    <animate attributeName="opacity" values="0.03;0.08;0.03" keyTimes="0;0.5;1" dur="10s" repeatCount="indefinite" begin="0.2s"/>
+  </polygon>
+  <polygon points="400,750 410,767 400,784 380,784 370,767 380,750"
+           stroke="white" stroke-width="2" fill="none">
+    <animate attributeName="opacity" values="0.02;0.06;0.02" keyTimes="0;0.5;1" dur="13s" repeatCount="indefinite" begin="1.3s"/>
+  </polygon>
+</g>
+  <!-- Lines im Zentrum verteilt -->
+  <rect class="line1" x="300" y="200" width="200" height="3" fill="white"/>
+  <rect class="line2" x="400" y="350" width="180" height="3" fill="white"/>
+  <rect class="line3" x="220" y="400" width="180" height="3" fill="white"/>
+  <rect class="line4" x="340" y="600" width="160" height="3" fill="white"/>
+  <rect class="line5" x="360" y="500" width="120" height="3" fill="white"/>
+  <rect class="line6" x="450" y="450" width="220" height="3" fill="white"/>
+</svg>
+

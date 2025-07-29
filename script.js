@@ -1,5 +1,5 @@
 function init() {
-  showPokemon();
+  renderPokemon();
 }
 
 let offset = 0;
@@ -16,7 +16,7 @@ async function fetchData() {
   return data.results;
 }
 
-async function showPokemon() {
+async function renderPokemon() {
   const pokemons = await fetchData();
   let html = '';
 
@@ -43,7 +43,7 @@ async function showPokemon() {
 function nextPage() {
   if (offset + limit < maxPokemon) {
     offset += limit;
-    showPokemon();
+    renderPokemon();
   }
 }
 
@@ -53,5 +53,5 @@ function prevPage() {
   } else {
     offset = 0;
   }
-  showPokemon();
+  renderPokemon();
 }

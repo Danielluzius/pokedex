@@ -5,7 +5,8 @@
   gap: 16px;
 }
 
-.pokemon-front-image {
-  width: 120px;
-  height: auto;
+main {
+  position: relative; /* damit das Overlay positioniert werden kann */
+  z-index: 1;
+  overflow: hidden;
 }
