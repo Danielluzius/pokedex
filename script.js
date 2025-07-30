@@ -27,23 +27,14 @@ async function renderPokemon() {
   for (let i = 0; i < pokemons.length; i++) {
     const detailResponse = await fetch(pokemons[i].url);
     const detailData = await detailResponse.json();
-    const imgUrl = detailData.sprites.back_default;
-    const imgFrontUrl = detailData.sprites.front_default;
 
-    html += `
-  <div class="flip-card">
-    <div class="flip-card-inner">
-      <div class="flip-card-front">
-        <img class="img-back" src="${imgUrl}">
-        <p class="title">${pokemons[i].name}</p>
-      </div>
-      <div class="flip-card-back">
-        <img class="img-front" src="${imgFrontUrl}">
-        <p class="title">${pokemons[i].name}</p>
-      </div>
-    </div>
-  </div>
-`;
+    html += renderPokemonTemplate({
+      name: pokemons[i].name,
+      imageFront: detailData.sprites.front_default,
+      imageBack: detailData.sprites.back_default,
+      type: detailData.types.map((type) => type.type.name).join(', '),
+      id: detailData.id,
+    });
   }
   cardContainer.innerHTML = html;
 
@@ -68,3 +59,10 @@ function prevPage() {
   }
   renderPokemon();
 }
+
+const toggleButton = document.getElementById('oak-toggle');
+const dropdown = document.getElementById('oak-dropdown');
+
+toggleButton.addEventListener('click', function () {
+  dropdown.classList.toggle('show');
+});

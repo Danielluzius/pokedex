@@ -1,7 +1,6 @@
 .buttons {
   display: flex;
   justify-content: space-between;
-  margin: 16px 0;
 }
 
 .flip-card {
@@ -37,7 +36,8 @@
   height: 100%;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  border-radius: 1rem;
+  border: solid 1px #dccaa0;
+  border-radius: 3px;
 }
 
 .flip-card-front {
@@ -47,10 +47,12 @@
   align-items: center;
 }
 
-.img-front {
+.flip-card-front img {
   width: 100px;
   height: 100px;
   object-fit: cover;
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
 }
 
 .flip-card-back {
@@ -60,9 +62,8 @@
   align-items: center;
 }
 
-.img-back {
+.flip-card-back img {
   width: 100px;
   height: 100px;
   object-fit: cover;
-  opacity: 0.4;
 }

@@ -3,6 +3,9 @@
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
+  font-family: 'VT323', monospace;
+  font-weight: 200;
+  color: #fef9eb;
 }
 
 html,
@@ -19,6 +22,10 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
+}
+
+header {
+  min-height: 26vh;
 }
 
 header,

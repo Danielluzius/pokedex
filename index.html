@@ -13,6 +13,11 @@
     <script src="./script.js" defer></script>
     <script src="./scripts/template.js" defer></script>
     <script src="./scripts/database.js" defer></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=VT323&display=swap"
+        rel="stylesheet">
 </head>
 
 <body onload="init()">
@@ -20,19 +25,27 @@
 
         <header>
             <div class="section-wrapper">
-                <div>
-                    <h1>Pokedex</h1>
-                    <input type="text" id="search" placeholder="Search Pokémon..." />
+                <h1>Pokedex</h1>
+                <div class="header-icon">
+                    <h2>Searching for a specific Pokémon? →</h2>
+                    <button id="oak-toggle" style="padding:0; background:none; border:none;">
+                        <a href="javascript:void(0)"><span>ASK THE PROFESSOR</span></a>
+                    </button>
                 </div>
 
+                <div id="oak-dropdown" class="oak-dropdown">
+                    <div class="oak-dropdown-content">
+                        <img src="./assets/img/oak_img.webp" class="professor-img" alt="Prof. Oak" />
+                    </div>
+                    <div class="oak-input-wrapper">
+                        <input id="oak-search" type="text" placeholder="Search for Pokémon...">
+                    </div>
+                </div>
             </div>
         </header>
 
         <main>
             <div class="section-wrapper">
-                <div class="hero">
-                    <img class="professor-img" src="./assets/img/prof_oak.webp" alt="Professor Eich blinzelt">
-                </div>
 
 
                 <div class="buttons">
