@@ -5,6 +5,22 @@ h1 {
   text-align: center;
 }
 
+h2 {
+  font-family: 'Silkscreen', cursive;
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  color: #dccaa0;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-family: 'Silkscreen', cursive;
+  font-size: clamp(1rem, 2.5vw, 2rem);
+  color: #fef9eb;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
 #card_container {
   display: flex;
   flex-wrap: wrap;

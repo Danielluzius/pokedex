@@ -21,7 +21,7 @@
 }
 
 .flip-card:hover .flip-card-inner {
-  transform: rotateY(-180deg);
+  transform: rotateY(180deg);
   cursor: pointer;
 }
 
@@ -66,4 +66,35 @@
   width: 100px;
   height: 100px;
   object-fit: cover;
+}
+
+/* testbereich */
+
+.oak-dropdown-content {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+#oak-result-wrapper {
+  min-width: 180px;
+  max-width: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.5rem;
+  gap: 0.5rem;
+}
+
+#oak-result-label {
+  display: none;
+  font-size: 1rem;
+  color: #dccaa0;
+  margin-bottom: 0.5rem;
+  font-family: 'Silkscreen', cursive;
+}
+
+#oak-result {
+  min-height: 160px; /* damit nichts springt */
 }

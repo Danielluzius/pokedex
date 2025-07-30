@@ -26,15 +26,22 @@
         <header>
             <div class="section-wrapper">
                 <h1>Pokedex</h1>
+                <h2>Welcome to the Pokedex!</h2>
+                <h3>Here you can find information about your favorite Pokémon.</h3>
+
                 <div class="header-icon">
-                    <h2>Searching for a specific Pokémon? →</h2>
+                    <p>and if you're searching for a specific Pokémon.. →</p>
                     <button id="oak-toggle" style="padding:0; background:none; border:none;">
-                        <a href="javascript:void(0)"><span>ASK THE PROFESSOR</span></a>
+                        <a href="javascript:void(0)"><span>ask the professor!</span></a>
                     </button>
                 </div>
 
                 <div id="oak-dropdown" class="oak-dropdown">
                     <div class="oak-dropdown-content">
+                        <div id="oak-result-wrapper">
+                            <div id="oak-result-label">Did you mean?</div>
+                            <div id="oak-result"></div>
+                        </div>
                         <img src="./assets/img/oak_img.webp" class="professor-img" alt="Prof. Oak" />
                     </div>
                     <div class="oak-input-wrapper">
