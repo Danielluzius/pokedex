@@ -1,204 +1,270 @@
-h1 {
-  font-family: 'Silkscreen', cursive;
-  font-size: clamp(3rem, 8vw, 8rem);
-  color: #fef9eb;
+/* ========== HERO-HEADER ANIMATION ========== */
+.hero-header {
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
   text-align: center;
+  background: #21212100;
+  pointer-events: auto;
+  visibility: visible;
 }
 
-h2 {
+.hero-header.visible {
+  opacity: 1;
+}
+
+.hero-header.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ========== HERO BUTTON ========== */
+.start-btn-wrapper {
+  margin-top: 24px;
+}
+
+.start-btn {
+  font-size: 1.5rem;
+  padding: 16px 36px;
+  background-color: #dccaa0;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #19202a;
+  font-weight: bold;
+}
+
+/* ========== MAIN ANIMATION ========== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========== MAIN HEADINGS ========== */
+.main-heading {
   font-family: 'Silkscreen', cursive;
-  font-size: clamp(1.5rem, 4vw, 3rem);
+  font-size: clamp(3rem, 7vw, 4rem);
+  color: #fef9eb;
+  text-align: center;
+  margin-bottom: 10px;
+  white-space: nowrap;
+}
+
+.main-heading2 {
+  font-family: 'Silkscreen', cursive;
+  font-size: clamp(1.3rem, 4vw, 4.5rem);
+  color: #fef9eb;
+  text-align: center;
+  margin-bottom: 10px;
+  white-space: nowrap;
+}
+
+.main-top-heading {
+  font-family: 'Silkscreen', cursive;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
   color: #dccaa0;
   text-align: center;
 }
 
-h3 {
+.main-subheading {
   font-family: 'VT323', monospace;
-  font-size: clamp(1rem, 2.5vw, 2rem);
-  color: #fef9eb;
+  font-size: clamp(1rem, 2.5vw, 1.8rem);
+  color: #dccaa0;
   text-align: center;
+  line-height: 1.4;
+  margin-bottom: 10px;
 }
 
-#card_container {
+/* ========== FOOTER AUSBLENDEN SOLANGE HERO SICHTBAR ========== */
+body.header-active footer {
+  display: none;
+}
+
+/* ========== OAK HINWEIS ========== */
+
+.oak-hint {
+  text-align: center;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  gap: 16px;
-  transition: opacity 0.3s;
-  opacity: 1;
-  padding: 58px 0 0 0;
+  align-items: center;
 }
 
-#card_container.fading {
-  opacity: 0;
+.oak-hinweis p {
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  color: #fef9eb;
+  margin-bottom: 12px;
+  font-family: 'VT323', monospace;
 }
 
-main {
-  position: relative;
-  z-index: 1;
+.oak-btn {
+  background: none;
+  border: 2px solid #dccaa0;
+  color: #dccaa0;
+  padding: 8px 20px;
+  font-size: clamp(0.3rem, 2.5vw, 0.6rem);
+  font-family: 'Silkscreen', cursive;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+  letter-spacing: 0.5px;
+}
+
+.oak-btn:hover {
+  background: #dccaa020;
+}
+
+/* ========== OAK DROPDOWN ========== */
+
+.oak-background {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0;
+  border-radius: 8px;
+  border: 2px solid #19202a;
   overflow: hidden;
 }
 
-.oak-dropdown {
-  display: none;
+.oak-wrapper {
+  position: relative;
   width: 100%;
-  max-width: 700px;
-  margin: 0 auto;
 }
 
-.oak-dropdown.show {
-  display: block;
-}
-
-.oak-dropdown-content {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
+.oak-bg {
   width: 100%;
-  padding-right: 1rem;
-}
-
-.professor-img {
-  width: 40vw;
-  max-width: 300px;
   height: auto;
+  display: block;
+  border-radius: 8px;
+  transition: opacity 0.4s ease;
+  opacity: 1;
 }
+
+.oak-bg.dimmed {
+  opacity: 0.4;
+}
+
+/* Die Box sitzt im Bild */
+.oak-result-box {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 35%;
+  background-color: rgba(25, 32, 42, 0.8);
+  border-radius: 8px;
+  padding: 12px;
+  box-sizing: border-box;
+  color: #fef9eb;
+  font-family: 'Silkscreen', cursive;
+}
+
+#oak-result-label {
+  font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+  color: #dccaa0;
+  margin-bottom: 8px;
+}
+
+#oak-result {
+  font-size: clamp(0.5rem, 1.3vw, 1.1rem);
+}
+
+/* ========== OAK INPUT ========== */
 
 .oak-input-wrapper {
-  width: 100%;
+  position: absolute;
+  bottom: 4%;
+  left: 5%;
+  width: 90%;
   display: flex;
   justify-content: center;
+  z-index: 2;
 }
 
 #oak-search {
   width: 100%;
-  padding: 14px 10px;
-  border-radius: 0.3rem;
-  border: 2px solid #ccc;
-  font-size: 1.2rem;
-  text-align: center;
-  color: #222;
-  background: #fef9eb;
-}
-
-.header-icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  padding-bottom: 1.2rem;
-}
-
-/* TESTBEREICH */
-
-.hero-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: #21212100;
-  z-index: 100;
-  transition: height 0.6s, transform 0.6s;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.hero-header.shrink {
-  height: 80px;
-  transform: translateY(-100%);
-}
-
-.start-btn {
-  margin: 12px 0;
-  padding: 14px 36px;
-  font-size: 1.2rem;
-  border: none;
+  padding: 12px 16px;
   border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.hidden {
-  display: none;
-}
-
-a {
-  position: relative;
-  display: inline-block;
-  padding: 0px 7px;
-  border: 2px solid #fefefe;
-  text-transform: uppercase;
-  color: #fefefe;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 20px;
-}
-
-a::before {
-  content: '';
-  position: absolute;
-  top: 6px;
-  left: -2px;
-  width: calc(100% + 4px);
-  height: calc(100% - 12px);
-  background-color: #21212100;
-  transition: 0.3s ease-in-out;
-  transform: scaleY(1);
-}
-
-a:hover::before {
-  transform: scaleY(0);
-}
-
-a::after {
-  content: '';
-  position: absolute;
-  left: 6px;
-  top: -2px;
-  height: calc(100% + 4px);
-  width: calc(100% - 12px);
-  background-color: #19202a;
-  transition: 0.3s ease-in-out;
-  transform: scaleX(1);
-}
-
-a:hover::after {
-  transform: scaleX(0);
-}
-
-a span {
-  position: relative;
-  z-index: 3;
-  color: #dccaa0;
-}
-
-.big-btn {
-  font-size: clamp(1rem, 2.5vw, 2rem);
-  padding: 16px 42px;
-
-  letter-spacing: 2px;
-}
-
-.big-btn span {
-  font-size: 1.4em;
-}
-
-.start-btn-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
-.type-row {
+  border: 2px solid #ccc;
+  font-size: clamp(1rem, 2vw, 1.3rem);
   text-align: center;
+  background: #fef9eb;
+  font-family: 'VT323', monospace;
+  box-sizing: border-box;
+  z-index: 2;
 }
-.type-icon {
-  width: 16px;
-  height: 16px;
-  vertical-align: middle;
-  margin-left: 2px;
-  margin-right: 2px;
+
+/* ========== PROFESSOR IMAGE ========== */
+
+.professor-img {
+  position: absolute;
+  bottom: calc(4% + 36px);
+  right: 7%;
+  max-width: 45%;
+  height: auto;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ========== OAK UI ========== */
+
+.oak-ui {
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 0.5s ease;
+}
+
+.oak-ui.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ========== SCREEN HITBOX ========== */
+
+/* Klickbare Fläche auf dem Bildschirm im Laborbild */
+.screen-hitbox {
+  position: absolute;
+  top: 32%;
+  left: 51%;
+  width: 15%;
+  height: 15%;
+  cursor: pointer;
+  z-index: 5;
+  /* optional sichtbar machen zum Testen */
+  /* background-color: rgba(255, 0, 0, 0.2); */
+}
+
+/* Versteckter Monitorbereich */
+
+#monitor-section {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transition: opacity 0.5s ease, max-height 0.5s ease;
+}
+
+#monitor-section.show {
+  opacity: 1;
+  max-height: 1000px; /* groß genug für dein Monitorbild */
+  pointer-events: auto;
+}
+
+#oak-monitor {
+  width: 100%;
+  max-width: 1000px;
+  display: block;
+  margin: 0 auto;
+  border-radius: 8px;
 }

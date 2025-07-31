@@ -23,62 +23,74 @@
 
 </head>
 
-<body onload="init()">
+<body class="header-active" onload="init()">
     <div class="page-wrapper">
 
         <header id="hero-header" class="hero-header">
             <div class="section-wrapper">
-                <h2>Welcome to the</h2>
-                <h1>Pokedex</h1>
-
+                <span class="main-top-heading">Welcome to the</span>
+                <h1 class="main-heading">Pokedex</h1>
+                <span class="main-top-heading">Your personal Pokémon Database</span>
 
                 <div class="start-btn-wrapper">
-                    <button id="start-btn" class="start-btn" style="background:none; border:none;">
-                        <a href="javascript:void(0)" class="big-btn"><span>Lets go!</span></a>
+                    <button id="start-btn" class="start-btn" onclick="showMainContent()">
+                        <span>Visit the Laboratory</span>
                     </button>
                 </div>
-
-
             </div>
         </header>
 
-        <main id="main-content" class="hidden">
-            <div class="section-wrapper">
-                <h1>Pokedex</h1>
-                <h3>Here you can find information about the 1.Gen Pokémon.</h3>
+        <main class="hidden">
+            <div class="section-wrapper fade-in">
+                <h1 class="main-heading2">Professor Oak's Lab</h1>
+                <h3 class="main-subheading">
+                    If you're on a lookout for specific Pokémon information, you've come to the right place!
 
-                <div class="header-icon">
-                    <p>If you're searching for a specific Pokémon.. →</p>
-                    <button id="oak-toggle" style="padding:0; background:none; border:none;">
-                        <a href="javascript:void(0)"><span>ask the professor!</span></a>
-                    </button>
+                </h3>
+                <div class="oak-hint">
+                    <p>If you have any questions,..</p>
+                    <button id="oak-toggle" class="oak-btn" onclick="toggleOakUI()">→ Ask Professor Oak!</button>
                 </div>
 
-                <div id="oak-dropdown" class="oak-dropdown">
-                    <div class="oak-dropdown-content">
-                        <div id="oak-result-wrapper">
-                            <div id="oak-result-label">Did you mean?</div>
-                            <div id="oak-result"></div>
+                <div class="section-wrapper fade-in" id="oak-section">
+                    <section class="oak-background">
+                        <div class="oak-wrapper">
+                            <img src="./assets/img/oaks_lab.webp" class="oak-bg" id="oak-background">
+
+                            <div id="oak-ui-elements" class="oak-ui hidden">
+                                <div class="oak-result-box">
+                                    <div id="oak-result-label">Meintest du vielleicht:</div>
+                                    <div id="oak-result">
+                                        <span style="opacity: 0.4;">(Hier wird später das Pokémon angezeigt)</span>
+                                    </div>
+                                </div>
+                                <div class="oak-input-wrapper">
+                                    <input id="oak-search" type="text" placeholder="Pokémon suchen...">
+                                    <img src="./assets/img/oak_img.webp" class="professor-img">
+                                </div>
+                            </div>
+
+                            <!-- HIER: Klickbare Fläche auf dem Bildschirm im Laborbild -->
+                            <div id="screen-hitbox" class="screen-hitbox" onclick="toggleMonitor()"></div>
                         </div>
-                        <img src="./assets/img/oak_img.webp" class="professor-img" alt="Prof. Oak" />
-                    </div>
-                    <div class="oak-input-wrapper">
-                        <input id="oak-search" type="text" placeholder="Search for Pokémon...">
-                    </div>
+                    </section>
+                </div>
+
+                <!-- Hier wird der neue Bildschirm eingeblendet -->
+                <div class="section-wrapper fade-in hidden" id="monitor-section">
+                    <img src="./assets/img/oaks_pc.png" alt="Monitor" id="oak-monitor">
                 </div>
 
 
-                <div class="buttons">
-                    <button onclick="prevPage()" id="prev-btn" disabled>Zurück</button>
-                    <button onclick="nextPage()" id="next-btn">Weiter</button>
-                </div>
-                <div id="card_container"></div>
 
-            </div>
+
+
+
+
         </main>
 
         <footer>
-            <div class="section-wrapper">
+            <div class="section-wrapper fade-in">
                 <p>Work in progress || made by © 2025 Daniel Luzius</p>
             </div>
         </footer>

@@ -24,10 +24,6 @@ body {
   flex-direction: column;
 }
 
-header {
-  min-height: 26vh;
-}
-
 header,
 footer {
   background: #19202a70;
@@ -49,7 +45,13 @@ main {
 
 /* Responsive Anpassung */
 @media (max-width: 768px) {
-  .container {
-    padding: 15px 20px;
+}
+
+@media (max-width: 650px) {
+}
+
+@media (max-width: 420px) {
+  .section-wrapper {
+    padding: 10px;
   }
 }
