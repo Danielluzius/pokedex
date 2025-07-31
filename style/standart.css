@@ -30,11 +30,11 @@ header {
 
 header,
 footer {
-  background: #19202a70; /* Dein gewählter Farbton, halbtransparent */
-  backdrop-filter: blur(6px); /* Optional, für den Glas-Effekt */
+  background: #19202a70;
+  backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  box-shadow: 0 2px 8px #0001; /* Optional: leichter Schatten */
-  border-radius: 8px; /* Optional: abgerundete Ecken */
+  box-shadow: 0 2px 8px #0001;
+  border-radius: 8px;
 }
 
 main {

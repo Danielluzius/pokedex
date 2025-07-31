@@ -1,16 +1,13 @@
-// --- Globale Variablen ---
 let offset = 0;
 const limit = 27;
 const maxPokemon = 151;
 let allPokemonNames = [];
 
-// --- Initialisierung ---
 function init() {
   loadAllPokemonNames();
   renderPokemon();
 }
 
-// --- Alle Pokémon-Namen holen ---
 function loadAllPokemonNames() {
   fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
     .then((response) => response.json())
@@ -22,7 +19,6 @@ function loadAllPokemonNames() {
     });
 }
 
-// --- Daten für die Hauptansicht holen ---
 function fetchData() {
   let actualLimit = offset + limit > maxPokemon ? maxPokemon - offset : limit;
   return fetch(`https://pokeapi.co/api/v2/pokemon?limit=${actualLimit}&offset=${offset}`)
@@ -30,7 +26,6 @@ function fetchData() {
     .then((data) => data.results);
 }
 
-// --- Karten in der Hauptansicht rendern ---
 async function renderPokemon() {
   const cardContainer = document.getElementById('card_container');
   cardContainer.classList.add('fading');
@@ -54,30 +49,27 @@ async function renderPokemon() {
   setTimeout(() => cardContainer.classList.remove('fading'), 250);
 }
 
-// --- Paginierung ---
 function nextPage() {
   if (offset + limit < maxPokemon) {
     offset += limit;
     renderPokemon();
   }
 }
+
 function prevPage() {
   offset = offset - limit >= 0 ? offset - limit : 0;
   renderPokemon();
 }
 
-// --- Dropdown (Oak) ein/ausklappen ---
 document.getElementById('oak-toggle').addEventListener('click', function () {
   document.getElementById('oak-dropdown').classList.toggle('show');
 });
 
-// --- Hilfsfunktion für Fehlermeldung ---
 function showNoPokemonFound(resultBox, labelBox) {
   resultBox.innerHTML = '<span style="color:#ff5252;">No Pokémon found.</span>';
   labelBox.style.display = 'none';
 }
 
-// --- Suche im Oak-Bereich ---
 let oakSearchInput = document.getElementById('oak-search');
 let oakResult = document.getElementById('oak-result');
 let oakResultLabel = document.getElementById('oak-result-label');
@@ -91,7 +83,6 @@ oakSearchInput.addEventListener('input', function () {
     return;
   }
 
-  // Suche nach erstem passenden Namen mit Schleife
   let matchedName = null;
   for (let i = 0; i < allPokemonNames.length; i++) {
     if (allPokemonNames[i].substring(0, searchText.length) === searchText) {
