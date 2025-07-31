@@ -8,45 +8,61 @@ function init() {
   renderPokemon();
 }
 
-function loadAllPokemonNames() {
-  fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
-    .then((response) => response.json())
-    .then((data) => {
-      allPokemonNames = [];
-      for (let i = 0; i < data.results.length; i++) {
-        allPokemonNames.push(data.results[i].name);
-      }
-    });
+async function loadAllPokemonNames() {
+  const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151');
+  const data = await response.json();
+  allPokemonNames = [];
+  for (let i = 0; i < data.results.length; i++) {
+    allPokemonNames.push(data.results[i].name);
+  }
 }
 
-function fetchData() {
+async function fetchData() {
   let actualLimit = offset + limit > maxPokemon ? maxPokemon - offset : limit;
-  return fetch(`https://pokeapi.co/api/v2/pokemon?limit=${actualLimit}&offset=${offset}`)
-    .then((response) => response.json())
-    .then((data) => data.results);
+  const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${actualLimit}&offset=${offset}`);
+  const data = await response.json();
+  return data.results;
 }
 
 async function renderPokemon() {
   const cardContainer = document.getElementById('card_container');
   cardContainer.classList.add('fading');
-  await new Promise((resolve) => setTimeout(resolve, 300));
+  await wait(300);
+
   const pokemons = await fetchData();
   let html = '';
   for (let i = 0; i < pokemons.length; i++) {
-    const detailResponse = await fetch(pokemons[i].url);
-    const detailData = await detailResponse.json();
-    html += renderPokemonTemplate({
-      name: pokemons[i].name,
-      imageFront: detailData.sprites.front_default,
-      imageBack: detailData.sprites.back_default,
-      type: detailData.types.map((type) => type.type.name).join(', '),
-      id: detailData.id,
-    });
+    html += await renderPokemonCard(pokemons[i]);
   }
   cardContainer.innerHTML = html;
+  updatePaginationButtons();
+  setTimeout(() => cardContainer.classList.remove('fading'), 250);
+}
+
+async function renderPokemonCard(pokemon) {
+  const detailResponse = await fetch(pokemon.url);
+  const detailData = await detailResponse.json();
+  return renderPokemonTemplate({
+    name: pokemon.name,
+    imageFront: detailData.sprites.front_default,
+    imageBack: detailData.sprites.back_default,
+    typeIcons: getTypeIcons(detailData.types),
+    id: detailData.id,
+  });
+}
+
+function getTypeIcons(typesArray) {
+  let icons = [];
+  for (let i = 0; i < typesArray.length; i++) {
+    const typeName = typesArray[i].type.name;
+    icons.push(`<img src="./assets/img/icon/${typeName}.png" alt="${typeName}" title="${typeName}" class="type-icon">`);
+  }
+  return icons.join('');
+}
+
+function updatePaginationButtons() {
   document.getElementById('prev-btn').disabled = offset === 0;
   document.getElementById('next-btn').disabled = offset + limit >= maxPokemon;
-  setTimeout(() => cardContainer.classList.remove('fading'), 250);
 }
 
 function nextPage() {
@@ -59,6 +75,10 @@ function nextPage() {
 function prevPage() {
   offset = offset - limit >= 0 ? offset - limit : 0;
   renderPokemon();
+}
+
+function wait(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 document.getElementById('oak-toggle').addEventListener('click', function () {
@@ -74,7 +94,7 @@ let oakSearchInput = document.getElementById('oak-search');
 let oakResult = document.getElementById('oak-result');
 let oakResultLabel = document.getElementById('oak-result-label');
 
-oakSearchInput.addEventListener('input', function () {
+oakSearchInput.addEventListener('input', async function () {
   let searchText = oakSearchInput.value.trim().toLowerCase();
   oakResult.innerHTML = '';
   oakResultLabel.style.display = 'none';
@@ -83,13 +103,7 @@ oakSearchInput.addEventListener('input', function () {
     return;
   }
 
-  let matchedName = null;
-  for (let i = 0; i < allPokemonNames.length; i++) {
-    if (allPokemonNames[i].substring(0, searchText.length) === searchText) {
-      matchedName = allPokemonNames[i];
-      break;
-    }
-  }
+  let matchedName = findPokemonByNameStart(searchText);
 
   if (matchedName === null) {
     showNoPokemonFound(oakResult, oakResultLabel);
@@ -98,31 +112,51 @@ oakSearchInput.addEventListener('input', function () {
 
   oakResultLabel.style.display = 'block';
 
-  fetch('https://pokeapi.co/api/v2/pokemon/' + matchedName)
-    .then((response) => {
-      if (!response.ok) {
-        showNoPokemonFound(oakResult, oakResultLabel);
-        return;
-      }
-      return response.json();
-    })
-    .then((detailData) => {
-      if (!detailData) {
-        return;
-      }
-      oakResult.innerHTML = renderPokemonTemplate({
-        name: detailData.name,
-        imageFront: detailData.sprites.front_default,
-        imageBack: detailData.sprites.back_default,
-        type: detailData.types
-          .map(function (type) {
-            return type.type.name;
-          })
-          .join(', '),
-        id: detailData.id,
-      });
-    })
-    .catch(function () {
-      showNoPokemonFound(oakResult, oakResultLabel);
-    });
+  let detailData = await fetchPokemonByName(matchedName);
+  if (!detailData) {
+    showNoPokemonFound(oakResult, oakResultLabel);
+    return;
+  }
+
+  oakResult.innerHTML = renderPokemonTemplate({
+    name: detailData.name,
+    imageFront: detailData.sprites.front_default,
+    imageBack: detailData.sprites.back_default,
+    typeIcons: getTypeIcons(detailData.types),
+    id: detailData.id,
+    cardClass: 'large-card',
+  });
+});
+
+function findPokemonByNameStart(searchText) {
+  for (let i = 0; i < allPokemonNames.length; i++) {
+    if (allPokemonNames[i].startsWith(searchText)) {
+      return allPokemonNames[i];
+    }
+  }
+  return null;
+}
+
+async function fetchPokemonByName(name) {
+  try {
+    const response = await fetch('https://pokeapi.co/api/v2/pokemon/' + name);
+    if (!response.ok) {
+      return null;
+    }
+    return await response.json();
+  } catch {
+    return null;
+  }
+}
+
+// TESTBEREICH
+
+document.getElementById('start-btn').addEventListener('click', function () {
+  const header = document.getElementById('hero-header');
+  const content = document.getElementById('main-content');
+  header.classList.add('shrink');
+  setTimeout(() => {
+    header.classList.add('hidden');
+    content.classList.remove('hidden');
+  }, 600);
 });

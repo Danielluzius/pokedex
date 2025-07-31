@@ -26,14 +26,29 @@
 <body onload="init()">
     <div class="page-wrapper">
 
-        <header>
+        <header id="hero-header" class="hero-header">
+            <div class="section-wrapper">
+                <h2>Welcome to the</h2>
+                <h1>Pokedex</h1>
+
+
+                <div class="start-btn-wrapper">
+                    <button id="start-btn" class="start-btn" style="background:none; border:none;">
+                        <a href="javascript:void(0)" class="big-btn"><span>Lets go!</span></a>
+                    </button>
+                </div>
+
+
+            </div>
+        </header>
+
+        <main id="main-content" class="hidden">
             <div class="section-wrapper">
                 <h1>Pokedex</h1>
-                <h2>Welcome to the Pokedex!</h2>
-                <h3>Here you can find information about your favorite Pokémon.</h3>
+                <h3>Here you can find information about the 1.Gen Pokémon.</h3>
 
                 <div class="header-icon">
-                    <p>and if you're searching for a specific Pokémon.. →</p>
+                    <p>If you're searching for a specific Pokémon.. →</p>
                     <button id="oak-toggle" style="padding:0; background:none; border:none;">
                         <a href="javascript:void(0)"><span>ask the professor!</span></a>
                     </button>
@@ -51,11 +66,6 @@
                         <input id="oak-search" type="text" placeholder="Search for Pokémon...">
                     </div>
                 </div>
-            </div>
-        </header>
-
-        <main>
-            <div class="section-wrapper">
 
 
                 <div class="buttons">
@@ -69,7 +79,7 @@
 
         <footer>
             <div class="section-wrapper">
-                <p>© 2025 Daniel</p>
+                <p>Work in progress || made by © 2025 Daniel Luzius</p>
             </div>
         </footer>
 
