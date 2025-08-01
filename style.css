@@ -249,29 +249,6 @@ body.header-active footer {
   transform: scale(1.05);
 }
 
-/* Versteckter Monitorbereich */
-
-#monitor-section {
-  opacity: 0;
-  max-height: 0;
-  overflow: hidden;
-  pointer-events: none;
-  transition: opacity 0.5s ease, max-height 0.5s ease;
-}
-
-#monitor-section.show {
-  opacity: 1;
-  max-height: 1000px; /* groß genug für dein Monitorbild */
-  pointer-events: auto;
-}
-
-#oak-monitor {
-  width: 100%;
-  max-width: 1100px;
-  display: block;
-  margin: 0 auto;
-}
-
 /* ========== PROFESSOR BUTTON ========== */
 
 .professor-button {
@@ -299,20 +276,95 @@ body.header-active footer {
 
 .oak-close-btn {
   position: absolute;
-  top: 12px;
-  right: 12px;
-  background: #dccaa0;
-  border: none;
-  padding: 8px 12px;
-  font-size: 1rem;
-  border-radius: 6px;
+  top: 7%;
+  right: 8%;
+  width: 8%;
+  height: auto;
   cursor: pointer;
-  font-family: 'VT323', monospace;
-  box-shadow: 0 0 4px #00000033;
-  transition: background 0.2s ease;
   z-index: 3;
+  transition: transform 0.2s ease;
 }
 
 .oak-close-btn:hover {
-  background: #c4b080;
+  transform: scale(1.05);
+}
+
+/* ========== MONITOR SECTION ========== */
+
+.monitor-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+#monitor-section {
+  position: relative; /* Wichtig für absolute Positionierung innerhalb */
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transition: opacity 0.5s ease, max-height 0.5s ease;
+}
+
+#monitor-section.show {
+  opacity: 1;
+  max-height: 1000px; /* Genug Platz für den Monitor + Leiste */
+  pointer-events: auto;
+}
+
+#oak-monitor {
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+}
+
+/* ========== POKEDEX GENERATION NAVIGATION ========== */
+.gen-btn {
+  position: absolute;
+  top: 4.5%;
+  left: 15%;
+  width: 5%;
+  aspect-ratio: 1 / 1;
+  font-size: 2vw;
+  background: transparent;
+  color: #ccc;
+  border: none;
+  font-family: 'VT323', monospace;
+  cursor: pointer;
+  z-index: 5;
+  transition: all 0.3s ease;
+}
+
+.gen-btn:hover {
+  color: #fff;
+  transform: scale(1.1);
+}
+
+.gen-btn.gen-1 {
+  left: 11%;
+}
+.gen-btn.gen-2 {
+  left: 20%;
+}
+.gen-btn.gen-3 {
+  left: 30%;
+}
+.gen-btn.gen-4 {
+  left: 39%;
+}
+.gen-btn.gen-5 {
+  left: 47.2%;
+}
+.gen-btn.gen-6 {
+  left: 55%;
+}
+.gen-btn.gen-7 {
+  left: 64%;
+}
+.gen-btn.gen-8 {
+  left: 73%;
+}
+.gen-btn.gen-9 {
+  left: 82%;
 }
