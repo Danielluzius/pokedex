@@ -48,19 +48,16 @@
 
                 </h3>
                 <div class="oak-hint">
-                    <p>If you have any questions,..</p>
-                    <button id="oak-toggle" class="oak-btn" onclick="toggleOakUI()">→ Ask Professor Oak!</button>
                 </div>
 
                 <div class="section-wrapper fade-in" id="oak-section">
                     <section class="oak-background">
                         <div class="oak-wrapper">
                             <!-- Hintergrundbild -->
-                            <img src="./assets/img/oaks_lab.webp" class="oak-bg" id="oak-background">
+                            <img src="./assets/img/oaks_lab.png" class="oak-bg" id="oak-background">
 
-                            <!-- NEUER PROFESSOR BUTTON direkt über dem Hintergrund, aber unter dem restlichen UI -->
                             <img src="./assets/img/prof_oak_waiting.webp" alt="Professor X" class="professor-button"
-                                onclick="toggleOakUI()">
+                                id="professor-button" onclick="toggleOakUI()">
 
                             <!-- UI-Elemente -->
                             <div id="oak-ui-elements" class="oak-ui hidden">
@@ -74,6 +71,7 @@
                                     <input id="oak-search" type="text" placeholder="Pokémon suchen...">
                                     <img src="./assets/img/oak_img.webp" class="professor-img">
                                 </div>
+                                <button class="oak-close-btn" onclick="closeOakUI()">✖</button>
                             </div>
 
                             <!-- Bildschirmklick-Fläche -->

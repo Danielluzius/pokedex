@@ -24,11 +24,19 @@ function showMainContent() {
 }
 
 function toggleOakUI() {
-  const ui = document.getElementById('oak-ui-elements');
-  const bg = document.getElementById('oak-background');
+  const oakUI = document.getElementById('oak-ui-elements');
+  const professorBtn = document.getElementById('professor-button');
 
-  ui.classList.toggle('hidden');
-  bg.classList.toggle('dimmed');
+  const isVisible = oakUI.classList.contains('show');
+
+  oakUI.classList.toggle('show');
+  oakUI.classList.toggle('hidden');
+
+  if (!isVisible) {
+    professorBtn.classList.add('hidden');
+  } else {
+    professorBtn.classList.remove('hidden');
+  }
 }
 
 function toggleMonitor() {
@@ -44,4 +52,18 @@ function toggleMonitor() {
       monitor.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }, 380); // etwas mehr als die 0.5s aus dem CSS
   }
+}
+
+function closeOakUI() {
+  const oakUI = document.getElementById('oak-ui-elements');
+  const professorBtn = document.getElementById('professor-button');
+
+  // Erst das UI sanft ausblenden
+  oakUI.classList.remove('show');
+  oakUI.classList.add('hidden');
+
+  // Professor-Button mit kleinem Delay einblenden
+  setTimeout(() => {
+    professorBtn.classList.remove('hidden');
+  }, 300); // Wartezeit in ms, passt zu UI-Transition
 }
