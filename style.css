@@ -130,7 +130,7 @@ body.header-active footer {
 /* ========== OAK DROPDOWN ========== */
 
 .oak-background {
-  max-width: 640px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 0;
   border-radius: 8px;
@@ -235,14 +235,20 @@ body.header-active footer {
 /* Klickbare Fläche auf dem Bildschirm im Laborbild */
 .screen-hitbox {
   position: absolute;
-  top: 32%;
-  left: 51%;
-  width: 15%;
-  height: 15%;
+  top: 34%;
+  left: 54.5%;
+  width: 8%;
+  height: 10%;
   cursor: pointer;
   z-index: 5;
   /* optional sichtbar machen zum Testen */
   /* background-color: rgba(255, 0, 0, 0.2); */
+}
+
+.screen-hitbox:hover {
+  background-color: rgba(255, 255, 255, 0.425);
+  transition: background-color 0.5s ease;
+  transform: scale(1.05);
 }
 
 /* Versteckter Monitorbereich */
@@ -267,4 +273,20 @@ body.header-active footer {
   display: block;
   margin: 0 auto;
   border-radius: 8px;
+}
+
+/* ========== PROFESSOR BUTTON ========== */
+
+.professor-button {
+  position: absolute;
+  bottom: 1%;
+  left: 64%;
+  width: 36%;
+  cursor: pointer;
+  z-index: 2;
+  transition: transform 0.2s ease;
+}
+
+.professor-button:hover {
+  transform: scale(1.02);
 }

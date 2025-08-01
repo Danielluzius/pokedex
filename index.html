@@ -28,8 +28,8 @@
 
         <header id="hero-header" class="hero-header">
             <div class="section-wrapper">
-                <span class="main-top-heading">Welcome to the</span>
-                <h1 class="main-heading">Pokedex</h1>
+                <span class="main-top-heading">Welcome to</span>
+                <h1 class="main-heading">Professor Oak's Lab</h1>
                 <span class="main-top-heading">Your personal Pokémon Database</span>
 
                 <div class="start-btn-wrapper">
@@ -55,8 +55,14 @@
                 <div class="section-wrapper fade-in" id="oak-section">
                     <section class="oak-background">
                         <div class="oak-wrapper">
+                            <!-- Hintergrundbild -->
                             <img src="./assets/img/oaks_lab.webp" class="oak-bg" id="oak-background">
 
+                            <!-- NEUER PROFESSOR BUTTON direkt über dem Hintergrund, aber unter dem restlichen UI -->
+                            <img src="./assets/img/prof_oak_waiting.webp" alt="Professor X" class="professor-button"
+                                onclick="toggleOakUI()">
+
+                            <!-- UI-Elemente -->
                             <div id="oak-ui-elements" class="oak-ui hidden">
                                 <div class="oak-result-box">
                                     <div id="oak-result-label">Meintest du vielleicht:</div>
@@ -70,7 +76,7 @@
                                 </div>
                             </div>
 
-                            <!-- HIER: Klickbare Fläche auf dem Bildschirm im Laborbild -->
+                            <!-- Bildschirmklick-Fläche -->
                             <div id="screen-hitbox" class="screen-hitbox" onclick="toggleMonitor()"></div>
                         </div>
                     </section>
