@@ -70,6 +70,11 @@ function showPokedexGenSection(genNumber) {
 
   mainSection.classList.remove('show');
   genSection.classList.add('show');
+
+  if (genNumber === 1) {
+    currentGenerationPage = 0;
+    showGenerationOnePage();
+  }
 }
 
 function closePokedexGenSection() {
@@ -81,3 +86,53 @@ function closePokedexGenSection() {
 }
 
 // TESTBEREICH
+
+// ========== GENERATION 1 – POKÉMON LADEN UND ANZEIGEN ==========
+
+// IDs der ersten Generation (1 bis 151)
+const generationOneIds = [];
+for (let i = 1; i <= 151; i++) {
+  generationOneIds.push(i);
+}
+
+// Anzeige-Konfiguration
+let currentGenerationPage = 0;
+const pokemonPerPage = 20;
+
+// Hauptfunktion zum Anzeigen einer Seite
+async function showGenerationOnePage() {
+  const outputContainer = document.getElementById('pokemon_output');
+  outputContainer.innerHTML = ''; // Vorherige Einträge löschen
+
+  const startIndex = currentGenerationPage * pokemonPerPage;
+  const endIndex = startIndex + pokemonPerPage;
+
+  for (let i = startIndex; i < endIndex && i < generationOneIds.length; i++) {
+    const pokemonId = generationOneIds[i];
+    const pokemonData = await fetchPokemonData(pokemonId);
+
+    outputContainer.innerHTML += `
+      <div class="pokemon-card">
+        <img src="${pokemonData.sprites.static.front}" alt="${pokemonData.name}">
+        <p>${pokemonData.name.toUpperCase()}</p>
+      </div>
+    `;
+  }
+}
+
+// Button: Weiter zur nächsten Seite
+function showNextGenerationOnePage() {
+  const maxPages = Math.ceil(generationOneIds.length / pokemonPerPage);
+  if (currentGenerationPage < maxPages - 1) {
+    currentGenerationPage++;
+    showGenerationOnePage();
+  }
+}
+
+// Button: Zurück zur vorherigen Seite
+function showPreviousGenerationOnePage() {
+  if (currentGenerationPage > 0) {
+    currentGenerationPage--;
+    showGenerationOnePage();
+  }
+}

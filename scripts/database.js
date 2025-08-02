@@ -1,5 +1,5 @@
 async function fetchPokemonData(nameOrId) {
-  const apiUrl = `https://pokeapi.co/api/v2/pokemon/${nameOrId.toLowerCase()}`;
+  const apiUrl = `https://pokeapi.co/api/v2/pokemon/${String(nameOrId).toLowerCase()}`;
 
   try {
     const response = await fetch(apiUrl);
