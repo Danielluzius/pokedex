@@ -32,14 +32,13 @@
 }
 
 .start-btn {
-  font-size: 1.5rem;
-  padding: 16px 36px;
-  background-color: #dccaa0;
-  border: none;
-  border-radius: 8px;
   cursor: pointer;
-  color: #19202a;
-  font-weight: bold;
+  width: 20%;
+}
+
+.start-btn:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
 }
 
 /* ========== MAIN ANIMATION ========== */
