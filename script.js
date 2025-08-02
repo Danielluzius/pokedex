@@ -1,10 +1,10 @@
 function init() {
-  const header = document.getElementById('hero-header');
+  const header = document.getElementById('hero_header');
   header.classList.add('visible');
 }
 
 function showMainContent() {
-  const header = document.getElementById('hero-header');
+  const header = document.getElementById('hero_header');
   const main = document.querySelector('main');
   const body = document.body;
 
@@ -12,7 +12,7 @@ function showMainContent() {
   header.classList.add('fade-out');
 
   setTimeout(function () {
-    header.style.display = 'none'; // Jetzt endgültig aus dem Layout nehmen
+    header.style.display = 'none';
     main.classList.remove('hidden');
     body.classList.remove('header-active');
 
@@ -20,11 +20,11 @@ function showMainContent() {
     for (let i = 0; i < fadeElements.length; i++) {
       fadeElements[i].classList.add('visible');
     }
-  }, 1200); // exakt wie in CSS: 1.2s
+  }, 1200);
 }
 
 function toggleOakUI() {
-  const oakUI = document.getElementById('oak-ui-elements');
+  const oakUI = document.getElementById('oak_ui_elements');
   const professorBtn = document.getElementById('professor-button');
 
   const isVisible = oakUI.classList.contains('show');
@@ -40,30 +40,42 @@ function toggleOakUI() {
 }
 
 function toggleMonitor() {
-  const monitor = document.getElementById('monitor-section');
+  const monitor = document.getElementById('monitor_section');
   const isVisible = monitor.classList.contains('show');
 
   monitor.classList.toggle('show');
 
-  // Wenn jetzt eingeblendet wird:
   if (!isVisible) {
-    // War vorher versteckt, wird jetzt sichtbar – also scroll NACH dem Übergang
     setTimeout(() => {
       monitor.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }, 380); // etwas mehr als die 0.5s aus dem CSS
+    }, 380);
   }
 }
 
 function closeOakUI() {
-  const oakUI = document.getElementById('oak-ui-elements');
+  const oakUI = document.getElementById('oak_ui_elements');
   const professorBtn = document.getElementById('professor-button');
 
-  // Erst das UI sanft ausblenden
   oakUI.classList.remove('show');
   oakUI.classList.add('hidden');
 
-  // Professor-Button mit kleinem Delay einblenden
   setTimeout(() => {
     professorBtn.classList.remove('hidden');
-  }, 300); // Wartezeit in ms, passt zu UI-Transition
+  }, 300);
+}
+
+function showPokedexGenSection(genNumber) {
+  const mainSection = document.getElementById('pokedex_main_section');
+  const genSection = document.getElementById('pokedex_gen_section');
+
+  mainSection.classList.remove('show');
+  genSection.classList.add('show');
+}
+
+function closePokedexGenSection() {
+  const mainSection = document.getElementById('pokedex_main_section');
+  const genSection = document.getElementById('pokedex_gen_section');
+
+  genSection.classList.remove('show');
+  mainSection.classList.add('show');
 }

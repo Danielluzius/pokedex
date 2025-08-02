@@ -26,14 +26,14 @@
 <body class="header-active" onload="init()">
     <div class="page-wrapper">
 
-        <header id="hero-header" class="hero-header">
+        <header id="hero_header" class="hero-header">
             <div class="section-wrapper">
                 <span class="main-top-heading">Welcome to</span>
                 <h1 class="main-heading">Professor Oak's Lab</h1>
                 <span class="main-top-heading">Your personal Pokémon Database</span>
 
                 <div class="start-btn-wrapper">
-                    <img id="start-btn" class="start-btn" onclick="showMainContent()"
+                    <img id="start_btn" class="start-btn" onclick="showMainContent()"
                         src="./assets/img/icon/button/enter_btn.png" alt="Enter Button">
                 </div>
             </div>
@@ -49,25 +49,24 @@
                 <div class="oak-hint">
                 </div>
 
-                <div class="section-wrapper fade-in" id="oak-section">
+                <div class="section-wrapper fade-in" id="oak_section">
                     <section class="oak-background">
                         <div class="oak-wrapper">
-                            <!-- Hintergrundbild -->
-                            <img src="./assets/img/oaks_lab.png" class="oak-bg" id="oak-background">
+
+                            <img src="./assets/img/oaks_lab.png" class="oak-bg" id="oak_background">
 
                             <img src="./assets/img/prof_oak_waiting.webp" alt="Professor X" class="professor-button"
                                 id="professor-button" onclick="toggleOakUI()">
 
-                            <!-- UI-Elemente -->
-                            <div id="oak-ui-elements" class="oak-ui hidden">
+                            <div id="oak_ui_elements" class="oak-ui hidden">
                                 <div class="oak-result-box">
-                                    <div id="oak-result-label">Meintest du vielleicht:</div>
-                                    <div id="oak-result">
-                                        <span style="opacity: 0.4;">(Hier wird später das Pokémon angezeigt)</span>
+                                    <div id="oak_result_label">Did you mean?</div>
+                                    <div id="oak_result">
+                                        <span style="opacity: 0.4;">(Pokemon placeholder)</span>
                                     </div>
                                 </div>
                                 <div class="oak-input-wrapper">
-                                    <input id="oak-search" type="text" placeholder="Pokémon suchen...">
+                                    <input id="oak_search" type="text" placeholder="Pokémon suchen...">
                                     <img src="./assets/img/oak_img.webp" class="professor-img">
                                 </div>
                                 <img src="./assets/img/back.webp" class="oak-close-btn" onclick="closeOakUI()"
@@ -75,27 +74,75 @@
 
                             </div>
 
-                            <!-- Bildschirmklick-Fläche -->
-                            <div id="screen-hitbox" class="screen-hitbox" onclick="toggleMonitor()"></div>
+                            <div id="screen_hitbox" class="screen-hitbox" onclick="toggleMonitor()"></div>
                         </div>
                     </section>
                 </div>
 
-                <!-- Hier wird der neue Bildschirm eingeblendet -->
-                <div class="section-wrapper fade-in hidden" id="monitor-section">
+                <div class="section-wrapper fade-in hidden" id="monitor_section">
                     <div class="monitor-wrapper">
-                        <img src="./assets/img/oaks_pc.png" alt="Monitor" id="oak-monitor">
+                        <img src="./assets/img/oaks_pc.png" alt="Monitor" id="oak_monitor">
 
-                        <button class="gen-btn gen-1">I</button>
-                        <button class="gen-btn gen-2">II</button>
-                        <button class="gen-btn gen-3">III</button>
-                        <button class="gen-btn gen-4">IV</button>
-                        <button class="gen-btn gen-5">V</button>
-                        <button class="gen-btn gen-6">VI</button>
-                        <button class="gen-btn gen-7">VII</button>
-                        <button class="gen-btn gen-8">VIII</button>
-                        <button class="gen-btn gen-9">IX</button>
 
+
+                        <div class="pokedex-screen">
+
+                            <div class="pokedex-main-section show" id="pokedex_main_section">
+
+                                <div class="pokedex-header show">
+                                    <span class="welcome-text">WELCOME</span>
+                                    <span class="choose-gen-text">WHAT GEN. YOU WANT TO EXPLORE?</span>
+                                </div>
+                                <img class="gen-btn first-row gen-btn-1-3" src="./assets/img/icon/button/1_btn.png"
+                                    alt="Gen 1 Button" onclick="showPokedexGenSection(1)">
+
+                                <img class="gen-btn second-row gen-btn-1-3" src="./assets/img/icon/button/2_btn.png"
+                                    alt="Gen 2 Button" onclick="showPokedexGenSection(2)">
+
+                                <img class="gen-btn third-row gen-btn-1-3" src="./assets/img/icon/button/3_btn.png"
+                                    alt="Gen 3 Button" onclick="showPokedexGenSection(3)">
+
+                                <img class="gen-btn first-row gen-btn-4-6" src="./assets/img/icon/button/4_btn.png"
+                                    alt="Gen 4 Button" onclick="showPokedexGenSection(4)">
+
+                                <img class="gen-btn second-row gen-btn-4-6" src="./assets/img/icon/button/5_btn.png"
+                                    alt="Gen 5 Button" onclick="showPokedexGenSection(5)">
+
+                                <img class="gen-btn third-row gen-btn-4-6" src="./assets/img/icon/button/6_btn.png"
+                                    alt="Gen 6 Button" onclick="showPokedexGenSection(6)">
+
+                                <img class="gen-btn first-row gen-btn-7-9" src="./assets/img/icon/button/7_btn.png"
+                                    alt="Gen 7 Button" onclick="showPokedexGenSection(7)">
+
+                                <img class="gen-btn second-row gen-btn-7-9" src="./assets/img/icon/button/8_btn.png"
+                                    alt="Gen 8 Button" onclick="showPokedexGenSection(8)">
+
+                                <img class="gen-btn third-row gen-btn-7-9" src="./assets/img/icon/button/9_btn.png"
+                                    alt="Gen 9 Button" onclick="showPokedexGenSection(9)">
+
+                            </div>
+
+                            <div class="pokedex-gen-section" id="pokedex_gen_section">
+                                <img src="./assets/img/back.webp" class="oak-close-btn" alt="Zurück-Button"
+                                    onclick="closePokedexGenSection()">
+
+
+                                <div class="pokedex-gen-header">
+                                    <img src="./assets/img/icon/button/left_arrow.png" alt="Left Arrow"
+                                        class="gen-arrow left-arrow" id="left_arrow" onclick="prevGen()">
+                                    <img src="./assets/img/icon/button/right_arrow.png" alt="Right Arrow"
+                                        class="gen-arrow right-arrow" id="right_arrow" onclick="nextGen()">
+                                </div>
+
+                                <div class="pokemon-content"></div>
+
+                            </div>
+
+
+
+                        </div>
+                        <img src="./assets/img/icon/button/close_btn.png" alt="Close Button" class="close-btn"
+                            id="close-btn" onclick="toggleMonitor()">
                     </div>
                 </div>
 
