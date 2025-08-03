@@ -219,3 +219,12 @@ function showPreviousGenerationPage(genNumber) {
     showGenerationPage(genNumber);
   }
 }
+
+// Background music functionality
+
+const audio = document.getElementById('background-music');
+const button = document.getElementById('start_btn');
+
+button.addEventListener('click', function () {
+  audio.play();
+});
