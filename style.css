@@ -163,7 +163,7 @@ body.header-active footer {
   border-radius: 8px;
   padding: 12px;
   box-sizing: border-box;
-  color: #fef9eb;
+  color: #000000;
   font-family: 'Silkscreen', cursive;
 }
 
@@ -175,6 +175,21 @@ body.header-active footer {
 
 #oak_result {
   font-size: clamp(0.5rem, 1.3vw, 1.1rem);
+}
+
+.oak-result-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  color: white;
+  font-size: 1rem;
+}
+.oak-result-card img {
+  width: 48px;
+  height: 48px;
 }
 
 /* ========== OAK INPUT ========== */
@@ -200,6 +215,7 @@ body.header-active footer {
   font-family: 'VT323', monospace;
   box-sizing: border-box;
   z-index: 2;
+  color: #000000;
 }
 
 /* ========== PROFESSOR IMAGE ========== */
@@ -229,7 +245,6 @@ body.header-active footer {
 
 /* ========== SCREEN HITBOX ========== */
 
-/* Klickbare Fläche auf dem Bildschirm im Laborbild */
 .screen-hitbox {
   position: absolute;
   top: 36%;
@@ -238,12 +253,11 @@ body.header-active footer {
   height: 8%;
   cursor: pointer;
   z-index: 5;
-  /* optional sichtbar machen zum Testen */
-  /* background-color: rgba(255, 0, 0, 0.2); */
+  transition: background-color 0.5s ease;
 }
 
 .screen-hitbox:hover {
-  background-color: rgba(255, 255, 255, 0.425);
+  background-color: rgba(255, 255, 255, 0.63);
   transition: background-color 0.5s ease;
   transform: scale(1.05);
 }
@@ -258,12 +272,12 @@ body.header-active footer {
   cursor: pointer;
   z-index: 2;
   opacity: 1;
-  transition: opacity 0.2s ease;
+  transition: transform 0.5s ease, opacity 0.2s ease;
 }
 
 .professor-button:hover {
-  transform: scale(1.02);
-  transition: transform 0.2s ease;
+  transform: scale(1.03);
+  transition: transform 0.5s ease;
 }
 
 .professor-button.hidden {
@@ -537,56 +551,58 @@ body.header-active footer {
 }
 
 .pokemon-card img {
-  width: 85%;
+  position: absolute;
+  width: 61%;
+  left: 22%;
+  top: 23%;
   height: auto;
   margin: -9% auto -9%;
   display: block;
-  opacity: 0.7;
+  opacity: 0.8;
   transition: opacity 0.3s ease;
   transition: transform 0.7s ease, opacity 0.3s ease;
-  position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .pokemon-nr {
   position: absolute;
-  top: 19%;
+  top: 10%;
   left: 50%;
   transform: translateX(-50%);
   color: #fef9eb;
   text-shadow: 0 0 5px #000000, 0 0 10px #fef9eb;
   font-weight: normal;
-  z-index: 2;
+  z-index: 1;
   transition: top 0.6s ease, transform 0.6s ease;
 }
 
 .pokemon-name {
   position: absolute;
-  bottom: 43%;
+  bottom: 10%;
   left: 50%;
   transform: translateX(-50%);
   color: #fef9eb;
   text-shadow: 0 0 5px #000000, 0 0 10px #fef9eb;
   font-weight: normal;
-  z-index: 2;
+  z-index: 1;
   transition: bottom 0.6s ease, transform 0.6s ease;
 }
 
 .pokemon-card:hover img {
   opacity: 1;
-  transform: scale(0.75);
+  transform: scale(1.1);
   transition: transform 0.7s ease, opacity 0.3s ease;
   z-index: 3;
 }
 
 .pokemon-card:hover .pokemon-name {
   bottom: 10%;
-  transform: translateX(-50%) translateY(-10px);
+  transform: translateX(-50%) translateY(30%);
 }
 
 .pokemon-card:hover .pokemon-nr {
   top: 10%;
-  transform: translateX(-50%) translateY(-10px);
+  transform: translateX(-50%) translateY(-40%);
 }
 
 .pokemon-card:hover .pokemon-name,

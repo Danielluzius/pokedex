@@ -1,6 +1,7 @@
 function init() {
   const header = document.getElementById('hero_header');
   header.classList.add('visible');
+  loadAllPokemonIndex();
 }
 
 function showMainContent() {
@@ -87,7 +88,51 @@ function closePokedexGenSection() {
 
 // TESTBEREICH
 
-// ========== GENERATION 1 – POKÉMON LADEN UND ANZEIGEN ==========
+// Test für suchfunktion
+
+let allPokemonIndex = [];
+
+async function loadAllPokemonIndex() {
+  const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1300');
+  const data = await response.json();
+
+  allPokemonIndex = data.results.map((pokemon, index) => ({
+    name: pokemon.name,
+    id: index + 1,
+    sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`,
+  }));
+}
+
+function searchPokemon() {
+  const input = document.getElementById('oak_search').value.toLowerCase().trim();
+  const oakResultBox = document.querySelector('.oak-result-box');
+  const oakLabel = document.getElementById('oak_result_label');
+  const oakResult = document.getElementById('oak_result');
+
+  if (input === '') {
+    oakResultBox.style.display = 'none';
+    return;
+  }
+
+  const match = allPokemonIndex.find((p) => p.name.startsWith(input));
+
+  oakResultBox.style.display = 'block';
+
+  if (match) {
+    oakLabel.textContent = 'Did you mean?';
+    oakResult.innerHTML = `
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="${match.sprite}" style="width: 50px;">
+        <span>#${match.id} – ${match.name.toUpperCase()}</span>
+      </div>
+    `;
+  } else {
+    oakLabel.textContent = '';
+    oakResult.innerHTML = '<span style="opacity: 0.5;">No Pokémon found.</span>';
+  }
+}
+
+// generation 1 ziehen
 
 // IDs der ersten Generation (1 bis 151)
 const generationOneIds = [];
