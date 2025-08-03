@@ -387,11 +387,15 @@ body.header-active footer {
   display: block;
   font-size: clamp(16px, 4vw, 72px);
   margin-bottom: 3%;
+  color: #fef9eb;
+  text-shadow: 0 0 5px #000000, 0 0 10px #fef9eb;
 }
 
 .choose-gen-text {
   display: block;
   font-size: clamp(12px, 2.5vw, 34px);
+  color: #fef9eb;
+  text-shadow: 0 0 5px #000000, 0 0 10px #fef9eb;
 }
 
 /* ========== POKEDEX GENERATION NAVIGATION ========== */
@@ -549,8 +553,8 @@ body.header-active footer {
   top: 19%;
   left: 50%;
   transform: translateX(-50%);
-  color: #ffffff;
-  text-shadow: 0 0 5px #000000, 0 0 10px #ffffff;
+  color: #fef9eb;
+  text-shadow: 0 0 5px #000000, 0 0 10px #fef9eb;
   font-weight: normal;
   z-index: 2;
   transition: top 0.6s ease, transform 0.6s ease;
@@ -561,8 +565,8 @@ body.header-active footer {
   bottom: 43%;
   left: 50%;
   transform: translateX(-50%);
-  color: #ffffff;
-  text-shadow: 0 0 5px #000000, 0 0 10px #ffffff;
+  color: #fef9eb;
+  text-shadow: 0 0 5px #000000, 0 0 10px #fef9eb;
   font-weight: normal;
   z-index: 2;
   transition: bottom 0.6s ease, transform 0.6s ease;
@@ -596,8 +600,8 @@ body.header-active footer {
   position: absolute;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.685);
-  color: #ffffff;
-  text-shadow: 0 0 5px #000000, 0 0 10px #ffffff;
+  color: #fef9eb;
+  text-shadow: 0 0 5px #000000, 0 0 10px #fef9eb;
   font-size: 2em;
   display: flex;
   justify-content: center;
