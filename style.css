@@ -585,6 +585,7 @@ body.header-active footer {
 
 .pokemon-name {
   position: absolute;
+  width: 100%;
   bottom: 10%;
   left: 50%;
   transform: translateX(-50%);
