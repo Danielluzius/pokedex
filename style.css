@@ -539,6 +539,7 @@ body.header-active footer {
   display: block;
   opacity: 0.7;
   transition: opacity 0.3s ease;
+  transition: transform 0.7s ease, opacity 0.3s ease;
   position: relative;
   z-index: 1;
 }
@@ -548,7 +549,8 @@ body.header-active footer {
   top: 19%;
   left: 50%;
   transform: translateX(-50%);
-  color: white;
+  color: #ffffff;
+  text-shadow: 0 0 5px #000000, 0 0 10px #ffffff;
   font-weight: normal;
   z-index: 2;
   transition: top 0.6s ease, transform 0.6s ease;
@@ -559,16 +561,16 @@ body.header-active footer {
   bottom: 43%;
   left: 50%;
   transform: translateX(-50%);
-  color: white;
+  color: #ffffff;
+  text-shadow: 0 0 5px #000000, 0 0 10px #ffffff;
   font-weight: normal;
   z-index: 2;
   transition: bottom 0.6s ease, transform 0.6s ease;
 }
 
-/* Hover-Effekt */
 .pokemon-card:hover img {
   opacity: 1;
-  transform: scale(1.05);
+  transform: scale(0.75);
   transition: transform 0.7s ease, opacity 0.3s ease;
   z-index: 3;
 }
@@ -586,4 +588,37 @@ body.header-active footer {
 .pokemon-card:hover .pokemon-name,
 .pokemon-card:hover .pokemon-nr {
   z-index: 0;
+}
+
+/* TESTBEREICH */
+
+#loading-screen {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.685);
+  color: #ffffff;
+  text-shadow: 0 0 5px #000000, 0 0 10px #ffffff;
+  font-size: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+#loading-screen.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pokemon-card {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.pokemon-card.visible {
+  opacity: 1;
+  transform: translateY(0);
 }

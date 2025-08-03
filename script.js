@@ -102,7 +102,13 @@ const pokemonPerPage = 20;
 // Hauptfunktion zum Anzeigen einer Seite
 async function showGenerationOnePage() {
   const outputContainer = document.getElementById('pokemon_output');
-  outputContainer.innerHTML = ''; // Vorherige Einträge löschen
+  const loadingScreen = document.getElementById('loading-screen');
+
+  // Ladebildschirm anzeigen
+  loadingScreen.classList.remove('hidden');
+
+  // Vorherige Einträge löschen
+  outputContainer.innerHTML = '';
 
   const startIndex = currentGenerationPage * pokemonPerPage;
   const endIndex = startIndex + pokemonPerPage;
@@ -111,14 +117,26 @@ async function showGenerationOnePage() {
     const pokemonId = generationOneIds[i];
     const pokemonData = await fetchPokemonData(pokemonId);
 
-    outputContainer.innerHTML += `
-    <div class="pokemon-card">
+    const card = document.createElement('div');
+    card.classList.add('pokemon-card');
+    card.innerHTML = `
       <p class="pokemon-nr">#${pokemonData.id}</p>
       <img src="${pokemonData.sprites.front}" alt="${pokemonData.name}">
       <p class="pokemon-name">${pokemonData.name.toUpperCase()}</p>
-    </div>
-  `;
+    `;
+
+    outputContainer.appendChild(card);
+
+    // sanft einblenden mit Verzögerung (optional)
+    setTimeout(() => {
+      card.classList.add('visible');
+    }, 80 * (i - startIndex));
   }
+
+  // Ladebildschirm nach kleiner Pause ausblenden
+  setTimeout(() => {
+    loadingScreen.classList.add('hidden');
+  }, 400);
 }
 
 // Button: Weiter zur nächsten Seite
