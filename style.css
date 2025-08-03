@@ -56,7 +56,7 @@
 /* ========== MAIN HEADINGS ========== */
 .main-heading {
   font-family: 'Silkscreen', cursive;
-  font-size: clamp(3rem, 7vw, 4rem);
+  font-size: clamp(1rem, 7vw, 4rem);
   color: #fef9eb;
   text-align: center;
   margin-bottom: 10px;
@@ -74,18 +74,27 @@
 
 .main-top-heading {
   font-family: 'Silkscreen', cursive;
-  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-size: clamp(0.4rem, 3vw, 2.2rem);
   color: #dccaa0;
   text-align: center;
 }
 
 .main-subheading {
   font-family: 'VT323', monospace;
-  font-size: clamp(1rem, 2.5vw, 1.8rem);
+  font-size: clamp(1rem, 3.5vw, 3.8rem);
   color: #dccaa0;
   text-align: center;
   line-height: 1.4;
   margin-bottom: 10px;
+}
+
+.main-text {
+  font-family: 'VT323', monospace;
+  font-size: clamp(0.8rem, 2.5vw, 1.8rem);
+  color: #fef9eb;
+  text-align: center;
+  line-height: 1.6;
+  margin-bottom: 20px;
 }
 
 /* ========== FOOTER AUSBLENDEN SOLANGE HERO SICHTBAR ========== */
@@ -155,6 +164,7 @@ body.header-active footer {
 
 /* Die Box sitzt im Bild */
 .oak-result-box {
+  display: none;
   position: absolute;
   top: 10%;
   left: 10%;

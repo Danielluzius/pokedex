@@ -140,19 +140,15 @@ for (let i = 1; i <= 151; i++) {
   generationOneIds.push(i);
 }
 
-// Anzeige-Konfiguration
 let currentGenerationPage = 0;
 const pokemonPerPage = 20;
 
-// Hauptfunktion zum Anzeigen einer Seite
 async function showGenerationOnePage() {
   const outputContainer = document.getElementById('pokemon_output');
   const loadingScreen = document.getElementById('loading-screen');
 
-  // Ladebildschirm anzeigen
   loadingScreen.classList.remove('hidden');
 
-  // Vorherige Einträge löschen
   outputContainer.innerHTML = '';
 
   const startIndex = currentGenerationPage * pokemonPerPage;
@@ -172,19 +168,16 @@ async function showGenerationOnePage() {
 
     outputContainer.appendChild(card);
 
-    // sanft einblenden mit Verzögerung (optional)
     setTimeout(() => {
       card.classList.add('visible');
     }, 80 * (i - startIndex));
   }
 
-  // Ladebildschirm nach kleiner Pause ausblenden
   setTimeout(() => {
     loadingScreen.classList.add('hidden');
-  }, 400);
+  }, 2000);
 }
 
-// Button: Weiter zur nächsten Seite
 function showNextGenerationOnePage() {
   const maxPages = Math.ceil(generationOneIds.length / pokemonPerPage);
   if (currentGenerationPage < maxPages - 1) {
@@ -193,7 +186,6 @@ function showNextGenerationOnePage() {
   }
 }
 
-// Button: Zurück zur vorherigen Seite
 function showPreviousGenerationOnePage() {
   if (currentGenerationPage > 0) {
     currentGenerationPage--;
