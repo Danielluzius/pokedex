@@ -94,7 +94,9 @@
   color: #fef9eb;
   text-align: center;
   line-height: 1.6;
-  margin-bottom: 20px;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  padding: 0 10px;
 }
 
 /* ========== FOOTER AUSBLENDEN SOLANGE HERO SICHTBAR ========== */
@@ -104,18 +106,13 @@ body.header-active footer {
 
 /* ========== OAK HINWEIS ========== */
 
-.oak-hint {
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.oak-hinweis p {
-  font-size: clamp(1rem, 2.5vw, 1.4rem);
-  color: #fef9eb;
-  margin-bottom: 12px;
+.laboratory-info {
   font-family: 'VT323', monospace;
+  font-size: clamp(0.6rem, 2vw, 1.2rem);
+  color: #fef9eb;
+  text-align: center;
+  margin-top: 10px;
+  padding: 0 20px;
 }
 
 .oak-btn {
@@ -164,17 +161,17 @@ body.header-active footer {
 
 /* Die Box sitzt im Bild */
 .oak-result-box {
-  display: none;
   position: absolute;
-  top: 10%;
-  left: 10%;
-  width: 35%;
+  top: 15%;
+  left: 12%;
+  width: 40%;
   background-color: rgba(25, 32, 42, 0.8);
   border-radius: 8px;
   padding: 12px;
   box-sizing: border-box;
   color: #000000;
   font-family: 'Silkscreen', cursive;
+  text-align: center;
 }
 
 #oak_result_label {
