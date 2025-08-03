@@ -1,5 +1,5 @@
 async function fetchPokemonData(nameOrId) {
-  const apiUrl = `https://pokeapi.co/api/v2/pokemon/${String(nameOrId).toLowerCase()}`;
+  const apiUrl = 'https://pokeapi.co/api/v2/pokemon/' + String(nameOrId).toLowerCase();
 
   try {
     const response = await fetch(apiUrl);
@@ -9,23 +9,27 @@ async function fetchPokemonData(nameOrId) {
 
     const data = await response.json();
 
-    // ID und Name
     const id = data.id;
     const name = data.name;
+    const height = data.height;
+    const weight = data.weight;
 
-    // Typen sammeln
+    // Typen + Typ-Icons
     const types = [];
+    const typeIcons = [];
     for (let i = 0; i < data.types.length; i++) {
-      types.push(data.types[i].type.name);
+      const typeName = data.types[i].type.name;
+      types.push(typeName);
+      typeIcons.push('https://play.pokemonshowdown.com/sprites/types/' + typeName + '.png');
     }
 
-    // Fähigkeiten sammeln
+    // Fähigkeiten
     const abilities = [];
     for (let i = 0; i < data.abilities.length; i++) {
       abilities.push(data.abilities[i].ability.name);
     }
 
-    // Statuswerte einzeln heraussuchen
+    // Statuswerte
     let hp = 0;
     let attack = 0;
     let defense = 0;
@@ -37,49 +41,30 @@ async function fetchPokemonData(nameOrId) {
       const statName = data.stats[i].stat.name;
       const baseStat = data.stats[i].base_stat;
 
-      if (statName === 'hp') {
-        hp = baseStat;
-      } else if (statName === 'attack') {
-        attack = baseStat;
-      } else if (statName === 'defense') {
-        defense = baseStat;
-      } else if (statName === 'special-attack') {
-        specialAttack = baseStat;
-      } else if (statName === 'special-defense') {
-        specialDefense = baseStat;
-      } else if (statName === 'speed') {
-        speed = baseStat;
-      }
+      if (statName === 'hp') hp = baseStat;
+      else if (statName === 'attack') attack = baseStat;
+      else if (statName === 'defense') defense = baseStat;
+      else if (statName === 'special-attack') specialAttack = baseStat;
+      else if (statName === 'special-defense') specialDefense = baseStat;
+      else if (statName === 'speed') speed = baseStat;
     }
 
-    // Größe & Gewicht
-    const height = data.height;
-    const weight = data.weight;
-
-    // Sprite-Links von Showdown
-    const baseUrl = 'https://play.pokemonshowdown.com/sprites/';
+    // Sprites (front/back von PokéAPI, animated von Showdown)
     const spriteName = name.toLowerCase();
+    const animatedFront = 'https://play.pokemonshowdown.com/sprites/gen5ani/' + spriteName + '.gif';
 
     const sprites = {
-      static: {
-        front: baseUrl + 'gen5/' + spriteName + '.png',
-        back: baseUrl + 'gen5-back/' + spriteName + '.png',
-        shinyFront: baseUrl + 'gen5-shiny/' + spriteName + '.png',
-        shinyBack: baseUrl + 'gen5-back-shiny/' + spriteName + '.png',
-      },
-      animated: {
-        front: baseUrl + 'gen5ani/' + spriteName + '.gif',
-        back: baseUrl + 'gen5ani-back/' + spriteName + '.gif',
-        shinyFront: baseUrl + 'gen5ani-shiny/' + spriteName + '.gif',
-        shinyBack: baseUrl + 'gen5ani-back-shiny/' + spriteName + '.gif',
-      },
+      front: data.sprites.front_default,
+      back: data.sprites.back_default,
+      animatedFront: animatedFront,
     };
 
-    // Ergebnis zurückgeben
+    // Rückgabe
     return {
       id: id,
       name: name,
       types: types,
+      typeIcons: typeIcons,
       abilities: abilities,
       stats: {
         hp: hp,

@@ -469,35 +469,51 @@ body.header-active footer {
   pointer-events: auto;
 }
 
-.gen-arrow {
+.gen-nav {
   position: absolute;
-  bottom: 4%;
+  top: 1%;
   width: 7%;
   height: auto;
   cursor: pointer;
   z-index: 5;
 }
 
-.left-arrow {
-  left: 30%;
+.left-nav {
+  left: 19%;
 }
-.right-arrow {
-  right: 30%;
+.right-nav {
+  right: 19%;
 }
 
-.gen-arrow:hover {
+.gen-nav:hover {
   transform: scale(1.1);
   transition: transform 0.2s ease;
+}
+
+.gen-close-btn {
+  position: absolute;
+  top: -2%;
+  right: 46%;
+  width: 8%;
+  height: auto;
+  cursor: pointer;
+  z-index: 3;
+  transition: transform 0.2s ease;
+}
+
+.gen-close-btn:hover {
+  transform: scale(1.05);
 }
 
 /* ========= POKEMON OUTPUT ========== */
 
 #pokemon_output {
   position: absolute;
-  top: 5%;
-  left: 3%;
-  width: 94%;
-  height: 80%;
+  top: 10%;
+  left: -1%;
+  width: 102%;
+  height: 91%;
+  padding: 1%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -509,23 +525,68 @@ body.header-active footer {
 .pokemon-card {
   position: relative;
   width: 18%;
-  height: 22%;
-  margin-bottom: 2%;
+  height: 25%;
   text-align: center;
-  font-size: clamp(10px, 1.6vw, 20px);
-  color: #fff;
+  font-size: clamp(10px, 1.6vw, 28px);
   cursor: pointer;
   transition: transform 0.2s ease;
 }
 
-.pokemon-card:hover {
-  transform: scale(1.05);
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
 .pokemon-card img {
-  width: 60%;
+  width: 85%;
   height: auto;
   margin: -9% auto -9%;
   display: block;
+  opacity: 0.3;
+  transition: opacity 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.pokemon-nr {
+  position: absolute;
+  top: 19%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-weight: normal;
+  z-index: 2;
+  transition: z-index 0.3s;
+}
+
+.pokemon-name {
+  position: absolute;
+  bottom: 43%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-weight: normal;
+  z-index: 2;
+  transition: z-index 0.3s;
+}
+
+/* Hover-Effekt */
+.pokemon-card:hover img {
+  opacity: 1;
+  transform: scale(1.05);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  z-index: 3;
+}
+
+.pokemon-card:hover .pokemon-name {
+  bottom: 1%;
+  transform: translateX(-50%) translateY(-10px);
+  transition: transform 0.3s ease;
+  z-index: 3;
+}
+
+.pokemon-card:hover .pokemon-nr {
+  top: 1%;
+  transform: translateX(-50%) translateY(-10px);
+  transition: transform 0.3s ease;
+  z-index: 4;
+}
+
+.pokemon-card:hover .pokemon-name .pokemon-nr {
+  z-index: 0;
 }

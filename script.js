@@ -112,11 +112,12 @@ async function showGenerationOnePage() {
     const pokemonData = await fetchPokemonData(pokemonId);
 
     outputContainer.innerHTML += `
-      <div class="pokemon-card">
-        <img src="${pokemonData.sprites.static.front}" alt="${pokemonData.name}">
-        <p>${pokemonData.name.toUpperCase()}</p>
-      </div>
-    `;
+    <div class="pokemon-card">
+      <p class="pokemon-nr">-${pokemonData.id}-</p>
+      <img src="${pokemonData.sprites.front}" alt="${pokemonData.name}">
+      <p class="pokemon-name">${pokemonData.name.toUpperCase()}</p>
+    </div>
+  `;
   }
 }
 
