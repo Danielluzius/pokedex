@@ -113,7 +113,7 @@ async function showGenerationOnePage() {
 
     outputContainer.innerHTML += `
     <div class="pokemon-card">
-      <p class="pokemon-nr">-${pokemonData.id}-</p>
+      <p class="pokemon-nr">#${pokemonData.id}</p>
       <img src="${pokemonData.sprites.front}" alt="${pokemonData.name}">
       <p class="pokemon-name">${pokemonData.name.toUpperCase()}</p>
     </div>
