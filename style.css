@@ -650,3 +650,22 @@ body.header-active footer {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* ========== VOLUME SLIDER ========== */
+
+.center-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.volume-slider-wrapper {
+  text-align: center;
+}
+
+.volume-slider-wrapper label {
+  font-family: 'VT323', monospace;
+  color: #fef9eb;
+  font-size: clamp(0.6rem, 1.5vw, 1.2rem);
+}

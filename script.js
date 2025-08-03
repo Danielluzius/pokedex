@@ -224,7 +224,14 @@ function showPreviousGenerationPage(genNumber) {
 
 const audio = document.getElementById('background-music');
 const button = document.getElementById('start_btn');
+const volumeSlider = document.getElementById('volume-slider');
+
+audio.volume = 0.2;
 
 button.addEventListener('click', function () {
   audio.play();
+});
+
+volumeSlider.addEventListener('input', function () {
+  audio.volume = volumeSlider.value;
 });
