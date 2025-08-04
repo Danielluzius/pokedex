@@ -87,10 +87,6 @@ function closePokedexGenSection() {
   mainSection.classList.add('show');
 }
 
-// TESTBEREICH
-
-// Test für suchfunktion
-
 let allPokemonIndex = [];
 
 async function loadAllPokemonIndex() {
@@ -132,8 +128,6 @@ function searchPokemon() {
     oakResult.innerHTML = '<span style="opacity: 0.5;">No Pokémon found.</span>';
   }
 }
-
-// generation 1 ziehen
 
 const generationIdRanges = {
   1: [1, 151],
@@ -222,13 +216,11 @@ function showPreviousGenerationPage(genNumber) {
   }
 }
 
-// Background music functionality
-
 const audio = document.getElementById('background-music');
 const button = document.getElementById('start_btn');
 const volumeSlider = document.getElementById('volume-slider');
 
-audio.volume = 0.0;
+audio.volume = 0.3;
 
 button.addEventListener('click', function () {
   audio.play();
@@ -254,8 +246,6 @@ function closePokemonCard() {
   main.classList.remove('hidden');
 }
 
-// TESTAREA
-
 let currentPokemonId = null;
 
 function showPokemonCard(pokemonData) {
@@ -270,60 +260,23 @@ function showPokemonCard(pokemonData) {
   currentPokemonId = pokemonData.id;
 
   let scaleFactor = 1;
-  if (pokemonData.height <= 6) {
-    scaleFactor = 1;
-  } else if (pokemonData.height <= 10) {
-    scaleFactor = 1.3;
-  } else if (pokemonData.height <= 15) {
-    scaleFactor = 1.6;
-  } else if (pokemonData.height <= 20) {
-    scaleFactor = 2.3;
-  } else {
-    scaleFactor = 2.5;
-  }
+  if (pokemonData.height <= 6) scaleFactor = 1;
+  else if (pokemonData.height <= 10) scaleFactor = 1.3;
+  else if (pokemonData.height <= 15) scaleFactor = 1.6;
+  else if (pokemonData.height <= 20) scaleFactor = 2.3;
+  else scaleFactor = 2.5;
 
-  card.classList.remove('visible'); // Für Übergang
+  card.classList.remove('visible');
 
   setTimeout(() => {
-    card.innerHTML = `
-      <img src="./assets/img/icon/button/close_btn.png" alt="Close Button" class="card-close-btn" onclick="closePokemonCard()">
-      <p class="card-id">#${pokemonData.id}</p>
-      <p class="card-name">${pokemonData.name.toUpperCase()}</p>
-      <img id="cardImage" class="card-image" src="${image}" alt="${
-      pokemonData.name
-    }" style="transform: scale(${scaleFactor}); transform-origin: center;">
-      
-      <div id="typeContainer" class="card-types"></div>
-
-      <div class="card-tabs">
-        <button class="tab-btn active" id="tab-about">About</button>
-        <button class="tab-btn" id="tab-stats">Stats</button>
-        <button class="tab-btn" id="tab-abilities">Abilities</button>
-      </div>
-
-      <div class="tab-content" id="tab-content"></div>
-
-      <img src="./assets/img/icon/button/left_arrow.png" alt="Back" class="back-btn" id="back_btn">
-      <img src="./assets/img/icon/button/right_arrow.png" alt="Next" class="next-btn" id="next_btn">
-    `;
+    card.innerHTML = createPokemonCardHTML(pokemonData, image, scaleFactor);
 
     const cardImage = document.getElementById('cardImage');
     cardImage.onload = () => {
       cardImage.classList.add('loaded');
-      card.classList.add('visible'); // Sichtbar machen nach Bild-Ladezeit
+      card.classList.add('visible');
     };
 
-    // Typen einfügen
-    const typeContainer = document.getElementById('typeContainer');
-    for (let i = 0; i < pokemonData.typeIcons.length; i++) {
-      const typeIcon = document.createElement('img');
-      typeIcon.src = pokemonData.typeIcons[i];
-      typeIcon.alt = pokemonData.types[i];
-      typeIcon.classList.add('type-icon');
-      typeContainer.appendChild(typeIcon);
-    }
-
-    // NEXT + BACK Buttons
     document.getElementById('next_btn').onclick = async () => {
       if (currentPokemonId < 1025) {
         const nextPokemonData = await fetchPokemonData(currentPokemonId + 1);
@@ -338,55 +291,40 @@ function showPokemonCard(pokemonData) {
       }
     };
 
-    // TAB-NAVIGATION
-    const tabContent = document.getElementById('tab-content');
     const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabSections = document.querySelectorAll('.tab-section');
 
-    const aboutHTML = `
-      <p>Height: ${pokemonData.height / 10} m</p>
-      <p>Weight: ${pokemonData.weight / 10} kg</p>
-      <p class="about-text">${pokemonData.description}</p>
-    `;
-
-    const statsHTML = `
-      <p>HP: ${pokemonData.stats.hp}</p>
-      <p>Attack: ${pokemonData.stats.attack}</p>
-      <p>Defense: ${pokemonData.stats.defense}</p>
-      <p>Sp. Atk: ${pokemonData.stats.specialAttack}</p>
-      <p>Sp. Def: ${pokemonData.stats.specialDefense}</p>
-      <p>Speed: ${pokemonData.stats.speed}</p>
-    `;
-
-    const abilitiesHTML = pokemonData.abilities.map((a) => `<p>${a}</p>`).join('');
-
-    function showTab(content) {
-      tabContent.innerHTML = content;
+    function showTab(tabId) {
+      tabSections.forEach((section) => section.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
     }
 
-    function setActiveTab(id) {
+    function setActiveTab(buttonId) {
       tabButtons.forEach((btn) => btn.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
+      document.getElementById(buttonId).classList.add('active');
     }
 
     document.getElementById('tab-about').addEventListener('click', () => {
-      showTab(aboutHTML);
+      showTab('about-section');
       setActiveTab('tab-about');
     });
 
     document.getElementById('tab-stats').addEventListener('click', () => {
-      showTab(statsHTML);
+      showTab('stats-section');
       setActiveTab('tab-stats');
     });
 
-    document.getElementById('tab-abilities').addEventListener('click', () => {
-      showTab(abilitiesHTML);
-      setActiveTab('tab-abilities');
-    });
-
-    // Standardansicht:
-    showTab(aboutHTML);
+    showTab('about-section');
+    setActiveTab('tab-about');
   }, 200);
 }
+
+document.getElementById('pokemon_overlay').addEventListener('click', function (event) {
+  const card = document.querySelector('.pokemon-detail-card-inner');
+  if (!card.contains(event.target)) {
+    closePokemonCard();
+  }
+});
 
 document.getElementById('pokemon_overlay').addEventListener('click', function (event) {
   const card = document.querySelector('.pokemon-detail-card-inner');

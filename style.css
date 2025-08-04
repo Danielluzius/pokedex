@@ -737,8 +737,6 @@ body.header-active footer {
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-/* ========== SHOW POKEMON DETAILS ========== */
-
 .card-id {
   position: absolute;
   top: 1%;
@@ -832,9 +830,6 @@ body.header-active footer {
   transform: scale(1.1);
 }
 
-/* 
-testbereich */
-
 .card-tabs {
   position: absolute;
   top: 48%;
@@ -852,7 +847,7 @@ testbereich */
   border: none;
   color: #fef9eb;
   font-family: 'Silkscreen', cursive;
-  font-size: clamp(0.6rem, 2vw, 1rem);
+  font-size: clamp(0.8rem, 2.5vw, 1.4rem);
   cursor: pointer;
   padding: 6px 12px;
   opacity: 0.6;
@@ -864,22 +859,90 @@ testbereich */
   opacity: 1;
 }
 
-.tab-content {
+.tab-content-container {
   position: absolute;
-  top: 63%;
+  bottom: 4%;
   left: 50%;
   transform: translateX(-50%);
-  width: 85%;
+  width: 88%;
+  height: 34%;
+  z-index: 2;
+  overflow: hidden;
   color: #fef9eb;
   font-family: 'VT323', monospace;
-  font-size: clamp(1.2rem, 2.5vw, 2rem); /* größer als vorher */
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
   text-align: center;
-  z-index: 2;
+}
+
+.tab-section {
+  position: absolute;
+  top: 2%;
+  left: 3%;
+  width: 91%;
+  height: 83%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.tab-section.active {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .about-text {
-  padding: 12px;
-  font-size: clamp(1rem, 2vw, 1.6rem); /* responsive Größe */
+  font-size: clamp(0.8rem, 3.7vw, 1.8rem);
   line-height: 1.6;
   text-align: justify;
+  padding: 0 8px;
+}
+
+.stats-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0 8px;
+}
+
+.stats-container > div {
+  position: absolute;
+}
+
+.meta-left {
+  top: 0;
+  left: 0;
+  font-size: clamp(0.8rem, 3.7vw, 1.8rem);
+  text-align: left;
+}
+
+.meta-right {
+  top: 4%;
+  right: 2%;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.type-icon {
+  width: clamp(30px, 6vw, 50px);
+  height: auto;
+}
+
+.stats-left {
+  bottom: 0;
+  left: 0;
+  font-size: clamp(0.8rem, 3.7vw, 1.8rem);
+  text-align: left;
+}
+
+.stats-right {
+  bottom: 0;
+  right: 0;
+  font-size: clamp(0.8rem, 3.7vw, 1.8rem);
+  text-align: right;
+}
+
+.stats-container p {
+  margin: 4px 0;
 }
