@@ -680,6 +680,7 @@ body.header-active footer {
   height: 100vh;
   display: flex;
   justify-content: center;
+  background-color: #212121e6;
   align-items: center;
   z-index: 200;
   transition: opacity 0.4s ease;
@@ -745,19 +746,24 @@ body.header-active footer {
 
 .card-name {
   position: absolute;
-  top: 50%;
-
+  top: 39%;
   left: 50%;
   transform: translateX(-50%);
   font-family: 'Silkscreen', cursive;
-  font-size: clamp(1rem, 8vw, 60px);
+  font-size: clamp(1rem, 8vw, 52px);
   text-align: center;
   z-index: 1;
 }
 
 .card-image {
   position: absolute;
-  top: 4%;
-  right: 9%;
-  width: 82%;
+  bottom: 67%;
+  right: 35%;
+  width: 29%;
+  opacity: 0;
+  transition: opacity 0.6s ease-in;
+}
+
+.card-image.loaded {
+  opacity: 1;
 }

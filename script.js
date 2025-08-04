@@ -266,12 +266,30 @@ function showPokemonCard(pokemonData) {
 
   const image = pokemonData.sprites.officialArtwork;
 
+  let scaleFactor = 1;
+  if (pokemonData.height <= 6) {
+    scaleFactor = 1;
+  } else if (pokemonData.height <= 10) {
+    scaleFactor = 1.3;
+  } else if (pokemonData.height <= 15) {
+    scaleFactor = 1.6;
+  } else if (pokemonData.height <= 20) {
+    scaleFactor = 2.3;
+  } else {
+    scaleFactor = 2.5;
+  }
+
   card.innerHTML = `
     <img src="./assets/img/icon/button/close_btn.png" alt="Close Button" class="card-close-btn" onclick="closePokemonCard()">
-
-      <p class="card-id">#${pokemonData.id}</p>
-      <p class="card-name">${pokemonData.name.toUpperCase()}</p>
-      <img class="card-image" src="${image}" alt="${pokemonData.name}">
-
+    <p class="card-id">#${pokemonData.id}</p>
+    <p class="card-name">${pokemonData.name.toUpperCase()}</p>
+    <img id="cardImage" class="card-image" src="${image}" alt="${
+    pokemonData.name
+  }" style="transform: scale(${scaleFactor}); transform-origin: center;">
   `;
+
+  const cardImage = document.getElementById('cardImage');
+  cardImage.onload = () => {
+    cardImage.classList.add('loaded');
+  };
 }

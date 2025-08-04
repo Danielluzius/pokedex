@@ -49,31 +49,35 @@ async function fetchPokemonData(nameOrId) {
       else if (statName === 'speed') speed = baseStat;
     }
 
-    // Sprites (front/back von PokéAPI + offizielles Artwork)
+    // Sprites (offiziell + animiert von Showdown)
+    const spriteName = name.toLowerCase();
+    const animatedFront = `https://play.pokemonshowdown.com/sprites/gen5ani/${spriteName}.gif`;
+    const officialArtwork = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+
     const sprites = {
       front: data.sprites.front_default,
       back: data.sprites.back_default,
-      officialArtwork: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`,
+      officialArtwork: officialArtwork,
+      animatedFront: animatedFront,
     };
 
-    // Rückgabe
     return {
-      id: id,
-      name: name,
-      types: types,
-      typeIcons: typeIcons,
-      abilities: abilities,
+      id,
+      name,
+      types,
+      typeIcons,
+      abilities,
       stats: {
-        hp: hp,
-        attack: attack,
-        defense: defense,
-        specialAttack: specialAttack,
-        specialDefense: specialDefense,
-        speed: speed,
+        hp,
+        attack,
+        defense,
+        specialAttack,
+        specialDefense,
+        speed,
       },
-      height: height,
-      weight: weight,
-      sprites: sprites,
+      height,
+      weight,
+      sprites,
     };
   } catch (error) {
     console.error('Fehler beim Laden des Pokémon:', error);
