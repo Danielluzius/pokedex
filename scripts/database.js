@@ -3,10 +3,7 @@ async function fetchPokemonData(nameOrId) {
 
   try {
     const response = await fetch(apiUrl);
-    if (!response.ok) {
-      throw new Error('Pokémon nicht gefunden');
-    }
-
+    if (!response.ok) throw new Error('Pokémon not found');
     const data = await response.json();
 
     const id = data.id;
@@ -20,7 +17,7 @@ async function fetchPokemonData(nameOrId) {
     for (let i = 0; i < data.types.length; i++) {
       const typeName = data.types[i].type.name;
       types.push(typeName);
-      typeIcons.push('https://play.pokemonshowdown.com/sprites/types/' + typeName + '.png');
+      typeIcons.push('./assets/img/icon/types/' + typeName + '.png');
     }
 
     // Fähigkeiten
@@ -30,17 +27,15 @@ async function fetchPokemonData(nameOrId) {
     }
 
     // Statuswerte
-    let hp = 0;
-    let attack = 0;
-    let defense = 0;
-    let specialAttack = 0;
-    let specialDefense = 0;
-    let speed = 0;
-
+    let hp = 0,
+      attack = 0,
+      defense = 0,
+      specialAttack = 0,
+      specialDefense = 0,
+      speed = 0;
     for (let i = 0; i < data.stats.length; i++) {
       const statName = data.stats[i].stat.name;
       const baseStat = data.stats[i].base_stat;
-
       if (statName === 'hp') hp = baseStat;
       else if (statName === 'attack') attack = baseStat;
       else if (statName === 'defense') defense = baseStat;
@@ -49,7 +44,7 @@ async function fetchPokemonData(nameOrId) {
       else if (statName === 'speed') speed = baseStat;
     }
 
-    // Sprites (offiziell + animiert von Showdown)
+    // Sprites
     const spriteName = name.toLowerCase();
     const animatedFront = `https://play.pokemonshowdown.com/sprites/gen5ani/${spriteName}.gif`;
     const officialArtwork = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
@@ -57,9 +52,19 @@ async function fetchPokemonData(nameOrId) {
     const sprites = {
       front: data.sprites.front_default,
       back: data.sprites.back_default,
-      officialArtwork: officialArtwork,
-      animatedFront: animatedFront,
+      officialArtwork,
+      animatedFront,
     };
+
+    // ➕ Englische Beschreibung
+    const speciesUrl = `https://pokeapi.co/api/v2/pokemon-species/${id}/`;
+    const speciesResponse = await fetch(speciesUrl);
+    const speciesData = await speciesResponse.json();
+
+    const englishEntry = speciesData.flavor_text_entries.find((entry) => entry.language.name === 'en');
+    const description = englishEntry
+      ? englishEntry.flavor_text.replace(/\f/g, ' ').replace(/\n/g, ' ')
+      : 'No description available.';
 
     return {
       id,
@@ -78,9 +83,10 @@ async function fetchPokemonData(nameOrId) {
       height,
       weight,
       sprites,
+      description,
     };
   } catch (error) {
-    console.error('Fehler beim Laden des Pokémon:', error);
+    console.error('Error fetching Pokémon data:', error);
     return null;
   }
 }

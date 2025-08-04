@@ -286,22 +286,42 @@ function showPokemonCard(pokemonData) {
 
   setTimeout(() => {
     card.innerHTML = `
-    <img src="./assets/img/icon/button/close_btn.png" alt="Close Button" class="card-close-btn" onclick="closePokemonCard()">
-    <p class="card-id">#${pokemonData.id}</p>
-    <p class="card-name">${pokemonData.name.toUpperCase()}</p>
-    <img id="cardImage" class="card-image" src="${image}" alt="${
+      <img src="./assets/img/icon/button/close_btn.png" alt="Close Button" class="card-close-btn" onclick="closePokemonCard()">
+      <p class="card-id">#${pokemonData.id}</p>
+      <p class="card-name">${pokemonData.name.toUpperCase()}</p>
+      <img id="cardImage" class="card-image" src="${image}" alt="${
       pokemonData.name
     }" style="transform: scale(${scaleFactor}); transform-origin: center;">
-    
-    <img src="./assets/img/icon/button/left_arrow.png" alt="Back" class="back-btn" id="back_btn">
-    <img src="./assets/img/icon/button/right_arrow.png" alt="Next" class="next-btn" id="next_btn">
-  `;
+      
+      <div id="typeContainer" class="card-types"></div>
+
+      <div class="card-tabs">
+        <button class="tab-btn active" id="tab-about">About</button>
+        <button class="tab-btn" id="tab-stats">Stats</button>
+        <button class="tab-btn" id="tab-abilities">Abilities</button>
+      </div>
+
+      <div class="tab-content" id="tab-content"></div>
+
+      <img src="./assets/img/icon/button/left_arrow.png" alt="Back" class="back-btn" id="back_btn">
+      <img src="./assets/img/icon/button/right_arrow.png" alt="Next" class="next-btn" id="next_btn">
+    `;
 
     const cardImage = document.getElementById('cardImage');
     cardImage.onload = () => {
       cardImage.classList.add('loaded');
       card.classList.add('visible'); // Sichtbar machen nach Bild-Ladezeit
     };
+
+    // Typen einfügen
+    const typeContainer = document.getElementById('typeContainer');
+    for (let i = 0; i < pokemonData.typeIcons.length; i++) {
+      const typeIcon = document.createElement('img');
+      typeIcon.src = pokemonData.typeIcons[i];
+      typeIcon.alt = pokemonData.types[i];
+      typeIcon.classList.add('type-icon');
+      typeContainer.appendChild(typeIcon);
+    }
 
     // NEXT + BACK Buttons
     document.getElementById('next_btn').onclick = async () => {
@@ -317,5 +337,60 @@ function showPokemonCard(pokemonData) {
         if (prevPokemonData) showPokemonCard(prevPokemonData);
       }
     };
+
+    // TAB-NAVIGATION
+    const tabContent = document.getElementById('tab-content');
+    const tabButtons = document.querySelectorAll('.tab-btn');
+
+    const aboutHTML = `
+      <p>Height: ${pokemonData.height / 10} m</p>
+      <p>Weight: ${pokemonData.weight / 10} kg</p>
+      <p class="about-text">${pokemonData.description}</p>
+    `;
+
+    const statsHTML = `
+      <p>HP: ${pokemonData.stats.hp}</p>
+      <p>Attack: ${pokemonData.stats.attack}</p>
+      <p>Defense: ${pokemonData.stats.defense}</p>
+      <p>Sp. Atk: ${pokemonData.stats.specialAttack}</p>
+      <p>Sp. Def: ${pokemonData.stats.specialDefense}</p>
+      <p>Speed: ${pokemonData.stats.speed}</p>
+    `;
+
+    const abilitiesHTML = pokemonData.abilities.map((a) => `<p>${a}</p>`).join('');
+
+    function showTab(content) {
+      tabContent.innerHTML = content;
+    }
+
+    function setActiveTab(id) {
+      tabButtons.forEach((btn) => btn.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    document.getElementById('tab-about').addEventListener('click', () => {
+      showTab(aboutHTML);
+      setActiveTab('tab-about');
+    });
+
+    document.getElementById('tab-stats').addEventListener('click', () => {
+      showTab(statsHTML);
+      setActiveTab('tab-stats');
+    });
+
+    document.getElementById('tab-abilities').addEventListener('click', () => {
+      showTab(abilitiesHTML);
+      setActiveTab('tab-abilities');
+    });
+
+    // Standardansicht:
+    showTab(aboutHTML);
   }, 200);
 }
+
+document.getElementById('pokemon_overlay').addEventListener('click', function (event) {
+  const card = document.querySelector('.pokemon-detail-card-inner');
+  if (!card.contains(event.target)) {
+    closePokemonCard();
+  }
+});
