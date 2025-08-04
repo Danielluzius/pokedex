@@ -286,6 +286,9 @@ function showPokemonCard(pokemonData) {
     <img id="cardImage" class="card-image" src="${image}" alt="${
     pokemonData.name
   }" style="transform: scale(${scaleFactor}); transform-origin: center;">
+
+ <img src="./assets/img/icon/button/left_arrow.png" alt="Back" class="back-btn" id="back_btn">
+<img src="./assets/img/icon/button/right_arrow.png" alt="Next" class="next-btn" id="next_btn">
   `;
 
   const cardImage = document.getElementById('cardImage');
