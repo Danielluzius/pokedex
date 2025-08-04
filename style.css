@@ -726,7 +726,7 @@ body.header-active footer {
   position: absolute;
   top: 3%;
   right: 5.5%;
-  width: 9%;
+  width: 12%;
   cursor: pointer;
   z-index: 5;
   transition: transform 0.3s ease, opacity 0.3s ease;
@@ -772,6 +772,7 @@ body.header-active footer {
 .card-image.loaded {
   opacity: 1;
 }
+
 .card-type {
   position: absolute;
   bottom: 5%;
