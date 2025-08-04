@@ -1,4 +1,4 @@
-let allPokemon = []; // Für die Suchfunktion (Name + ID)
+let allPokemon = [];
 
 function init() {
   const header = document.getElementById('hero_header');
@@ -29,6 +29,8 @@ function showMainContent() {
 function toggleOakUI() {
   const oakUI = document.getElementById('oak_ui_elements');
   const professorBtn = document.getElementById('professor-button');
+  const tap_Right = document.getElementById('tap_right');
+  const tap_Down = document.getElementById('tap_down');
 
   const isVisible = oakUI.classList.contains('show');
 
@@ -36,8 +38,12 @@ function toggleOakUI() {
   oakUI.classList.toggle('hidden');
 
   if (!isVisible) {
+    tap_Right.classList.add('hidden');
+    tap_Down.classList.add('hidden');
     professorBtn.classList.add('hidden');
   } else {
+    tap_Right.classList.remove('hidden');
+    tap_Down.classList.remove('hidden');
     professorBtn.classList.remove('hidden');
   }
 }
@@ -58,12 +64,16 @@ function toggleMonitor() {
 function closeOakUI() {
   const oakUI = document.getElementById('oak_ui_elements');
   const professorBtn = document.getElementById('professor-button');
+  const tap_Right = document.getElementById('tap_right');
+  const tap_Down = document.getElementById('tap_down');
 
   oakUI.classList.remove('show');
   oakUI.classList.add('hidden');
 
   setTimeout(() => {
     professorBtn.classList.remove('hidden');
+    tap_Right.classList.remove('hidden');
+    tap_Down.classList.remove('hidden');
   }, 300);
 }
 
