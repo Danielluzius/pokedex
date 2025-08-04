@@ -160,44 +160,6 @@ body.header-active footer {
 }
 
 /* Die Box sitzt im Bild */
-.oak-result-box {
-  position: absolute;
-  top: 15%;
-  left: 12%;
-  width: 40%;
-  background-color: rgba(25, 32, 42, 0.8);
-  border-radius: 8px;
-  padding: 12px;
-  box-sizing: border-box;
-  color: #000000;
-  font-family: 'Silkscreen', cursive;
-  text-align: center;
-}
-
-#oak_result_label {
-  font-size: clamp(0.9rem, 1.5vw, 1.2rem);
-  color: #dccaa0;
-  margin-bottom: 8px;
-}
-
-#oak_result {
-  font-size: clamp(0.5rem, 1.3vw, 1.1rem);
-}
-
-.oak-result-card {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 6px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 6px;
-  color: white;
-  font-size: 1rem;
-}
-.oak-result-card img {
-  width: 48px;
-  height: 48px;
-}
 
 /* ========== OAK INPUT ========== */
 
@@ -946,4 +908,74 @@ body.header-active footer {
 
 .stats-container p {
   margin: 4px 0;
+}
+
+/* testbereich */
+
+.oak-result-box {
+  position: absolute;
+  top: 13%;
+  left: 9%;
+  width: 39%;
+  height: 48%;
+  background-color: rgba(25, 32, 42, 0.8);
+  border-radius: 8px;
+  padding: 2%;
+  box-sizing: border-box;
+  font-family: 'Silkscreen', cursive;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#oak_result_label {
+  font-size: clamp(0.6rem, 2vw, 1.4rem);
+  color: #dccaa0;
+  text-align: center;
+}
+
+#oak_result {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.oak-pokemon-result {
+  width: 46%;
+  max-width: 300px;
+  text-align: center;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.oak-pokemon-result img {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: -12%;
+  left: 1%;
+}
+
+.oak-pokemon-result img:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+.oak-pokemon-name {
+  font-size: clamp(0.6rem, 3vw, 2rem);
+  color: #fef9eb;
+  text-shadow: 0 0 5px #000, 0 0 10px #fef9eb;
+  position: absolute;
+  bottom: 14%;
+  left: 33%;
+}
+
+.oak-msg {
+  opacity: 0.4;
+  color: #fff;
+  font-size: clamp(0.6rem, 3vw, 2rem);
+  text-align: center;
 }

@@ -113,42 +113,26 @@ function searchPokemon() {
 
   if (input.length < 3) {
     oakLabel.textContent = '';
-    oakResult.innerHTML = '<span style="opacity: 0.4;">Bitte mindestens 3 Buchstaben eingeben.</span>';
+    oakResult.innerHTML = '<span class="oak-msg">Please enter at least 3 characters.</span>';
     return;
   }
 
-  let matched = [];
+  const match = allPokemonIndex.find((p) => p.name.toLowerCase().includes(input));
 
-  for (let i = 0; i < allPokemonIndex.length; i++) {
-    const pokemon = allPokemonIndex[i];
-    const name = pokemon.name.toLowerCase();
-
-    if (name.includes(input)) {
-      matched.push(pokemon);
-    }
-
-    if (matched.length === 5) {
-      break;
-    }
-  }
-
-  if (matched.length === 0) {
+  if (!match) {
     oakLabel.textContent = '';
-    oakResult.innerHTML = '<span style="opacity: 0.4;">Keine Treffer gefunden.</span>';
+    oakResult.innerHTML = '<span class="oak-msg">No results found.</span>';
     return;
   }
 
-  oakLabel.textContent = 'Did you mean?';
+  oakLabel.textContent = 'Did you mean this Pokémon?';
 
-  for (let i = 0; i < matched.length; i++) {
-    const p = matched[i];
-    oakResult.innerHTML += `
-      <div class="oak-result-card" onclick="openPokemonFromSearch(${p.id})">
-        <img src="${p.sprite}" alt="${p.name}">
-        <span>#${String(p.id).padStart(3, '0')} – ${p.name.toUpperCase()}</span>
-      </div>
-    `;
-  }
+  oakResult.innerHTML = `
+    <div class="oak-pokemon-result" onclick="openPokemonFromSearch(${match.id})">
+      <img src="${match.sprite}" alt="${match.name}">
+      <p class="oak-pokemon-name">${match.name.toUpperCase()}</p>
+    </div>
+  `;
 }
 
 const generationIdRanges = {
