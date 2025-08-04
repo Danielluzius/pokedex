@@ -669,3 +669,35 @@ body.header-active footer {
   color: #fef9eb;
   font-size: clamp(0.6rem, 1.5vw, 1.2rem);
 }
+
+/* ========== POKEMON DETAILS ========== */
+
+#pokemon_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+  transition: opacity 0.4s ease;
+}
+
+#pokemon_overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pokemon-detail-card {
+  width: clamp(280px, 40vw, 460px);
+  aspect-ratio: 3 / 4.2;
+  background-image: url('./assets/img/pokedex_card.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  transition: transform 0.4s ease;
+}

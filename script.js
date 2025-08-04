@@ -235,3 +235,21 @@ button.addEventListener('click', function () {
 volumeSlider.addEventListener('input', function () {
   audio.volume = volumeSlider.value;
 });
+
+// TESTAREA
+
+function showPokemonCard() {
+  const overlay = document.getElementById('pokemon_overlay');
+  const main = document.querySelector('main');
+
+  overlay.classList.remove('hidden');
+  main.classList.add('hidden');
+}
+
+function closePokemonCard() {
+  const overlay = document.getElementById('pokemon_overlay');
+  const main = document.querySelector('main');
+
+  overlay.classList.add('hidden');
+  main.classList.remove('hidden');
+}
