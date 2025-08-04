@@ -282,40 +282,40 @@ function showPokemonCard(pokemonData) {
     scaleFactor = 2.5;
   }
 
-  card.innerHTML = `
+  card.classList.remove('visible'); // Für Übergang
+
+  setTimeout(() => {
+    card.innerHTML = `
     <img src="./assets/img/icon/button/close_btn.png" alt="Close Button" class="card-close-btn" onclick="closePokemonCard()">
     <p class="card-id">#${pokemonData.id}</p>
     <p class="card-name">${pokemonData.name.toUpperCase()}</p>
     <img id="cardImage" class="card-image" src="${image}" alt="${
-    pokemonData.name
-  }" style="transform: scale(${scaleFactor}); transform-origin: center;">
-
+      pokemonData.name
+    }" style="transform: scale(${scaleFactor}); transform-origin: center;">
+    
     <img src="./assets/img/icon/button/left_arrow.png" alt="Back" class="back-btn" id="back_btn">
     <img src="./assets/img/icon/button/right_arrow.png" alt="Next" class="next-btn" id="next_btn">
   `;
 
-  const cardImage = document.getElementById('cardImage');
-  cardImage.onload = () => {
-    cardImage.classList.add('loaded');
-  };
+    const cardImage = document.getElementById('cardImage');
+    cardImage.onload = () => {
+      cardImage.classList.add('loaded');
+      card.classList.add('visible'); // Sichtbar machen nach Bild-Ladezeit
+    };
 
-  // NEXT-BUTTON
-  document.getElementById('next_btn').onclick = async () => {
-    if (currentPokemonId < 1025) {
-      const nextPokemonData = await fetchPokemonData(currentPokemonId + 1);
-      if (nextPokemonData) {
-        showPokemonCard(nextPokemonData);
+    // NEXT + BACK Buttons
+    document.getElementById('next_btn').onclick = async () => {
+      if (currentPokemonId < 1025) {
+        const nextPokemonData = await fetchPokemonData(currentPokemonId + 1);
+        if (nextPokemonData) showPokemonCard(nextPokemonData);
       }
-    }
-  };
+    };
 
-  // BACK-BUTTON
-  document.getElementById('back_btn').onclick = async () => {
-    if (currentPokemonId > 1) {
-      const prevPokemonData = await fetchPokemonData(currentPokemonId - 1);
-      if (prevPokemonData) {
-        showPokemonCard(prevPokemonData);
+    document.getElementById('back_btn').onclick = async () => {
+      if (currentPokemonId > 1) {
+        const prevPokemonData = await fetchPokemonData(currentPokemonId - 1);
+        if (prevPokemonData) showPokemonCard(prevPokemonData);
       }
-    }
-  };
+    };
+  }, 200);
 }

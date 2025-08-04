@@ -714,6 +714,12 @@ body.header-active footer {
   box-sizing: border-box;
   color: #fef9eb;
   font-family: 'Silkscreen', cursive;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.pokemon-detail-card-inner.visible {
+  opacity: 1;
 }
 
 .card-close-btn {
