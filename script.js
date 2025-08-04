@@ -236,7 +236,8 @@ const audio = document.getElementById('background-music');
 const button = document.getElementById('start_btn');
 const volumeSlider = document.getElementById('volume-slider');
 
-audio.volume = 0.3;
+audio.volume = 0.2;
+audio.loop = true;
 
 button.addEventListener('click', function () {
   audio.play();
