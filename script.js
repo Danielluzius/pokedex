@@ -256,6 +256,8 @@ function closePokemonCard() {
 
 // TESTAREA
 
+let currentPokemonId = null;
+
 function showPokemonCard(pokemonData) {
   const overlay = document.getElementById('pokemon_overlay');
   const main = document.querySelector('main');
@@ -265,6 +267,7 @@ function showPokemonCard(pokemonData) {
   main.classList.add('hidden');
 
   const image = pokemonData.sprites.officialArtwork;
+  currentPokemonId = pokemonData.id;
 
   let scaleFactor = 1;
   if (pokemonData.height <= 6) {
@@ -287,12 +290,32 @@ function showPokemonCard(pokemonData) {
     pokemonData.name
   }" style="transform: scale(${scaleFactor}); transform-origin: center;">
 
- <img src="./assets/img/icon/button/left_arrow.png" alt="Back" class="back-btn" id="back_btn">
-<img src="./assets/img/icon/button/right_arrow.png" alt="Next" class="next-btn" id="next_btn">
+    <img src="./assets/img/icon/button/left_arrow.png" alt="Back" class="back-btn" id="back_btn">
+    <img src="./assets/img/icon/button/right_arrow.png" alt="Next" class="next-btn" id="next_btn">
   `;
 
   const cardImage = document.getElementById('cardImage');
   cardImage.onload = () => {
     cardImage.classList.add('loaded');
+  };
+
+  // NEXT-BUTTON
+  document.getElementById('next_btn').onclick = async () => {
+    if (currentPokemonId < 1025) {
+      const nextPokemonData = await fetchPokemonData(currentPokemonId + 1);
+      if (nextPokemonData) {
+        showPokemonCard(nextPokemonData);
+      }
+    }
+  };
+
+  // BACK-BUTTON
+  document.getElementById('back_btn').onclick = async () => {
+    if (currentPokemonId > 1) {
+      const prevPokemonData = await fetchPokemonData(currentPokemonId - 1);
+      if (prevPokemonData) {
+        showPokemonCard(prevPokemonData);
+      }
+    }
   };
 }
