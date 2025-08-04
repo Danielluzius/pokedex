@@ -670,7 +670,7 @@ body.header-active footer {
   font-size: clamp(0.6rem, 1.5vw, 1.2rem);
 }
 
-/* ========== POKEMON DETAILS ========== */
+/* ========== POKEMON DETAILS OVERLAY ========== */
 
 #pokemon_overlay {
   position: fixed;
@@ -678,7 +678,6 @@ body.header-active footer {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.75);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -703,17 +702,62 @@ body.header-active footer {
   transition: transform 0.4s ease;
 }
 
+.pokemon-detail-card-inner {
+  position: absolute;
+  top: -0.9%;
+  left: 0.4%;
+  width: 70%;
+  height: 80.7%;
+  margin: 14.6%;
+  background-color: #00000035;
+  box-sizing: border-box;
+  color: #fef9eb;
+  font-family: 'Silkscreen', cursive;
+}
+
 .card-close-btn {
   position: absolute;
-  top: 10%;
-  right: 15.5%;
+  top: 3%;
+  right: 5.5%;
   width: 9%;
   cursor: pointer;
   z-index: 5;
-  transition: transform 0.7s ease, opacity 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .card-close-btn:hover {
   transform: scale(1.1);
-  transition: transform 0.7s ease, opacity 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* ========== SHOW POKEMON DETAILS ========== */
+
+.card-id {
+  position: absolute;
+  top: 1%;
+  left: 20%;
+  transform: translateX(-50%);
+  font-family: 'Silkscreen', cursive;
+  font-size: clamp(1rem, 8vw, 54px);
+  z-index: 1;
+  text-align: center;
+}
+
+.card-name {
+  position: absolute;
+  top: 50%;
+
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Silkscreen', cursive;
+  font-size: clamp(1rem, 8vw, 60px);
+  text-align: center;
+  z-index: 1;
+}
+
+.card-image {
+  position: absolute;
+  top: 4%;
+  right: 9%;
+  width: 82%;
 }

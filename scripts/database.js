@@ -49,14 +49,11 @@ async function fetchPokemonData(nameOrId) {
       else if (statName === 'speed') speed = baseStat;
     }
 
-    // Sprites (front/back von PokéAPI, animated von Showdown)
-    const spriteName = name.toLowerCase();
-    const animatedFront = 'https://play.pokemonshowdown.com/sprites/gen5ani/' + spriteName + '.gif';
-
+    // Sprites (front/back von PokéAPI + offizielles Artwork)
     const sprites = {
       front: data.sprites.front_default,
       back: data.sprites.back_default,
-      animatedFront: animatedFront,
+      officialArtwork: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`,
     };
 
     // Rückgabe

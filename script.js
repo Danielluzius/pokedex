@@ -190,6 +190,8 @@ async function showGenerationPage(genNumber) {
       <p class="pokemon-name">${pokemonData.name.toUpperCase()}</p>
     `;
 
+    card.onclick = () => showPokemonCard(pokemonData);
+
     outputContainer.appendChild(card);
 
     setTimeout(() => {
@@ -236,8 +238,6 @@ volumeSlider.addEventListener('input', function () {
   audio.volume = volumeSlider.value;
 });
 
-// TESTAREA
-
 function showPokemonCard() {
   const overlay = document.getElementById('pokemon_overlay');
   const main = document.querySelector('main');
@@ -252,4 +252,26 @@ function closePokemonCard() {
 
   overlay.classList.add('hidden');
   main.classList.remove('hidden');
+}
+
+// TESTAREA
+
+function showPokemonCard(pokemonData) {
+  const overlay = document.getElementById('pokemon_overlay');
+  const main = document.querySelector('main');
+  const card = document.querySelector('.pokemon-detail-card-inner');
+
+  overlay.classList.remove('hidden');
+  main.classList.add('hidden');
+
+  const image = pokemonData.sprites.officialArtwork;
+
+  card.innerHTML = `
+    <img src="./assets/img/icon/button/close_btn.png" alt="Close Button" class="card-close-btn" onclick="closePokemonCard()">
+
+      <p class="card-id">#${pokemonData.id}</p>
+      <p class="card-name">${pokemonData.name.toUpperCase()}</p>
+      <img class="card-image" src="${image}" alt="${pokemonData.name}">
+
+  `;
 }
