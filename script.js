@@ -1,3 +1,5 @@
+let allPokemon = []; // Für die Suchfunktion (Name + ID)
+
 function init() {
   const header = document.getElementById('hero_header');
   header.classList.add('visible');
@@ -106,26 +108,46 @@ function searchPokemon() {
   const oakLabel = document.getElementById('oak_result_label');
   const oakResult = document.getElementById('oak_result');
 
-  if (input === '') {
-    oakResultBox.style.display = 'none';
+  oakResult.innerHTML = '';
+  oakResultBox.style.display = 'block';
+
+  if (input.length < 3) {
+    oakLabel.textContent = '';
+    oakResult.innerHTML = '<span style="opacity: 0.4;">Bitte mindestens 3 Buchstaben eingeben.</span>';
     return;
   }
 
-  const match = allPokemonIndex.find((p) => p.name.startsWith(input));
+  let matched = [];
 
-  oakResultBox.style.display = 'block';
+  for (let i = 0; i < allPokemonIndex.length; i++) {
+    const pokemon = allPokemonIndex[i];
+    const name = pokemon.name.toLowerCase();
 
-  if (match) {
-    oakLabel.textContent = 'Did you mean?';
-    oakResult.innerHTML = `
-      <div style="display: flex; align-items: center; gap: 10px;">
-        <img src="${match.sprite}" style="width: 50px;">
-        <span>#${match.id} – ${match.name.toUpperCase()}</span>
+    if (name.includes(input)) {
+      matched.push(pokemon);
+    }
+
+    if (matched.length === 5) {
+      break;
+    }
+  }
+
+  if (matched.length === 0) {
+    oakLabel.textContent = '';
+    oakResult.innerHTML = '<span style="opacity: 0.4;">Keine Treffer gefunden.</span>';
+    return;
+  }
+
+  oakLabel.textContent = 'Did you mean?';
+
+  for (let i = 0; i < matched.length; i++) {
+    const p = matched[i];
+    oakResult.innerHTML += `
+      <div class="oak-result-card" onclick="openPokemonFromSearch(${p.id})">
+        <img src="${p.sprite}" alt="${p.name}">
+        <span>#${String(p.id).padStart(3, '0')} – ${p.name.toUpperCase()}</span>
       </div>
     `;
-  } else {
-    oakLabel.textContent = '';
-    oakResult.innerHTML = '<span style="opacity: 0.5;">No Pokémon found.</span>';
   }
 }
 
@@ -332,3 +354,11 @@ document.getElementById('pokemon_overlay').addEventListener('click', function (e
     closePokemonCard();
   }
 });
+
+function openPokemonFromSearch(id) {
+  fetchPokemonData(id).then(function (data) {
+    if (data) {
+      showPokemonCard(data);
+    }
+  });
+}
