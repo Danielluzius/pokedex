@@ -1,8 +1,15 @@
+/** Global variables and constants for the Pokédex application.
+ * This file contains the main application state, including all Pokémon data,
+ */
 let allPokemon = [];
 let allPokemonIndex = [];
 let activeGeneration = 1;
 let currentPokemonId = null;
 
+/**
+ * @description Ranges of Pokémon IDs for each generation.
+ * Used to determine which Pokémon belong to which generation.
+ */
 const generationIdRanges = {
   1: [1, 151],
   2: [152, 251],
@@ -15,6 +22,10 @@ const generationIdRanges = {
   9: [906, 1025],
 };
 
+/**
+ * @description Keeps track of the current page for each generation.
+ * Used for pagination in the Pokédex.
+ */
 let currentPagePerGeneration = {
   1: 0,
   2: 0,
@@ -27,8 +38,16 @@ let currentPagePerGeneration = {
   9: 0,
 };
 
+/**
+ *  @description Number of Pokémon displayed per page in the Pokédex.
+ *  Used for pagination in the Pokédex.
+ */
 const pokemonPerPage = 20;
 
+/**
+ *  @description Initializes the background music and volume control.
+ *  Sets the default volume and adds event listeners for play and volume change.
+ */
 const audio = document.getElementById('background-music');
 const button = document.getElementById('start_btn');
 const volumeSlider = document.getElementById('volume-slider');
@@ -44,6 +63,11 @@ volumeSlider.addEventListener('input', function () {
   audio.volume = volumeSlider.value;
 });
 
+/**
+ *  @description Initializes the application by setting up the header visibility,
+ * loading all Pokémon index, and setting up the overlay close handler.
+ *  This function is called when the page loads.
+ */
 function init() {
   const header = document.getElementById('hero_header');
   header.classList.add('visible');
@@ -51,6 +75,11 @@ function init() {
   setupOverlayCloseHandler();
 }
 
+/**
+ * @description Shows the main content of the application.
+ * Hides the header and displays the main section.
+ * This function is called when the user clicks the start button.
+ */
 function showMainContent() {
   const header = document.getElementById('hero_header');
   const main = document.querySelector('main');
@@ -71,6 +100,11 @@ function showMainContent() {
   }, 1200);
 }
 
+/**
+ * @description Toggles the visibility of the Oak UI elements.
+ * This function is called when the user clicks the Professor Oak button.
+ * It shows or hides the Oak UI and updates the visibility of the tap indicators.
+ */
 function toggleOakUI() {
   const oakUI = document.getElementById('oak_ui_elements');
   const professorBtn = document.getElementById('professor-button');
@@ -93,6 +127,10 @@ function toggleOakUI() {
   }
 }
 
+/**
+ * @description Toggles the visibility of the monitor section.
+ * This function is called when the user clicks the monitor button.
+ */
 function toggleMonitor() {
   const monitor = document.getElementById('monitor_section');
   const isVisible = monitor.classList.contains('show');
@@ -106,6 +144,10 @@ function toggleMonitor() {
   }
 }
 
+/**
+ * @description Closes the Oak UI elements.
+ * This function is called when the user clicks the close button.
+ */
 function closeOakUI() {
   const oakUI = document.getElementById('oak_ui_elements');
   const professorBtn = document.getElementById('professor-button');
@@ -122,6 +164,10 @@ function closeOakUI() {
   }, 300);
 }
 
+/**
+ * @description Shows the Pokédex generation section.
+ * @param {*} genNumber
+ */
 function showPokedexGenSection(genNumber) {
   const mainSection = document.getElementById('pokedex_main_section');
   const genSection = document.getElementById('pokedex_gen_section');
@@ -134,6 +180,10 @@ function showPokedexGenSection(genNumber) {
   showGenerationPage(genNumber);
 }
 
+/**
+ * @description closes the Pokédex generation section.
+ * This function is called when the user clicks the close button in the generation section.
+ */
 function closePokedexGenSection() {
   const mainSection = document.getElementById('pokedex_main_section');
   const genSection = document.getElementById('pokedex_gen_section');
@@ -142,6 +192,10 @@ function closePokedexGenSection() {
   mainSection.classList.add('show');
 }
 
+/**
+ * @description loads Pokémon data from the PokeAPI.
+ * @param {number} id - The ID of the Pokémon to fetch.
+ */
 async function loadAllPokemonIndex() {
   const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1300');
   const data = await response.json();
@@ -153,10 +207,18 @@ async function loadAllPokemonIndex() {
   }));
 }
 
+/**
+ * @description Gets the search input value from the Oak UI.
+ * @returns {string} The trimmed search input value.
+ */
 function getSearchInput() {
   return document.getElementById('oak_search').value.toLowerCase().trim();
 }
 
+/**
+ * @description Renders a message in the Oak UI when no results are found or when the input is invalid.
+ * @param {string} message - The message to display.
+ */
 function renderSearchMessage(message) {
   const oakResult = document.getElementById('oak_result');
   const oakLabel = document.getElementById('oak_result_label');
@@ -164,6 +226,9 @@ function renderSearchMessage(message) {
   oakResult.innerHTML = getSearchMessageHTML(message);
 }
 
+/**
+ * @description Searches for a Pokémon by name.
+ */
 function searchPokemon() {
   const input = getSearchInput();
   const oakResultBox = document.querySelector('.oak-result-box');
@@ -189,6 +254,11 @@ function searchPokemon() {
   oakResult.innerHTML = getPokemonSearchResultHTML(match);
 }
 
+/**
+ * @description Gets the Pokémon IDs for a specific generation.
+ * @param {number} genNumber - The generation number.
+ * @returns {number[]} An array of Pokémon IDs for the specified generation.
+ */
 function getPokemonIdsForGeneration(genNumber) {
   const [startId, endId] = generationIdRanges[genNumber];
   const ids = [];
@@ -196,6 +266,10 @@ function getPokemonIdsForGeneration(genNumber) {
   return ids;
 }
 
+/**
+ * @description Renders a Pokémon card element.
+ * @param {*} pokemonData - The data of the Pokémon to render.
+ */
 function renderPokemonCard(pokemonData) {
   const card = document.createElement('div');
   card.classList.add('pokemon-card');
@@ -204,17 +278,30 @@ function renderPokemonCard(pokemonData) {
   return card;
 }
 
+/**
+ * @description Animates the appearance of a Pokémon card.
+ * @param {HTMLElement} card - The Pokémon card element to animate.
+ * @param {number} delayIndex - The index used to calculate the animation delay.
+ */
 function animateCardAppearance(card, delayIndex) {
   setTimeout(() => {
     card.classList.add('visible');
   }, 80 * delayIndex);
 }
 
+/**
+ * @description Toggles the visibility of the loading screen.
+ * @param {boolean} show - Whether to show or hide the loading screen.
+ */
 function toggleLoadingScreen(show) {
   const loading = document.getElementById('loading-screen');
   loading.classList.toggle('hidden', !show);
 }
 
+/**
+ * @description Shows the Pokémon cards for a specific generation.
+ * @param {number} genNumber - The generation number.
+ */
 async function showGenerationPage(genNumber) {
   const output = document.getElementById('pokemon_output');
   const ids = getPokemonIdsForGeneration(genNumber);
@@ -236,6 +323,10 @@ async function showGenerationPage(genNumber) {
   setTimeout(() => toggleLoadingScreen(false), 2000);
 }
 
+/**
+ * @description Shows the next page of Pokémon cards for a specific generation.
+ * @param {number} genNumber - The generation number.
+ */
 function showNextGenerationPage(genNumber) {
   const [startId, endId] = generationIdRanges[genNumber];
   const totalPokemon = endId - startId + 1;
@@ -247,6 +338,10 @@ function showNextGenerationPage(genNumber) {
   }
 }
 
+/**
+ * @description Shows the previous page of Pokémon cards for a specific generation.
+ * @param {number} genNumber - The generation number.
+ */
 function showPreviousGenerationPage(genNumber) {
   if (currentPagePerGeneration[genNumber] > 0) {
     currentPagePerGeneration[genNumber]--;
@@ -254,6 +349,9 @@ function showPreviousGenerationPage(genNumber) {
   }
 }
 
+/**
+ * @description Creates the HTML for a Pokémon card.
+ */
 function showPokemonCard() {
   const overlay = document.getElementById('pokemon_overlay');
   const main = document.querySelector('main');
@@ -263,6 +361,9 @@ function showPokemonCard() {
   document.body.classList.add('no-scroll');
 }
 
+/**
+ * @description Closes the Pokémon card overlay.
+ */
 function closePokemonCard() {
   const overlay = document.getElementById('pokemon_overlay');
   const main = document.querySelector('main');
@@ -272,6 +373,11 @@ function closePokemonCard() {
   document.body.classList.remove('no-scroll');
 }
 
+/**
+ * @description Gets the Pokémon IDs for a specific generation.
+ * @param {number} genNumber - The generation number.
+ * @returns {number[]} An array of Pokémon IDs for the specified generation.
+ */
 function getPokemonIdsForGeneration(genNumber) {
   const [startId, endId] = generationIdRanges[genNumber];
   const ids = [];
@@ -279,6 +385,11 @@ function getPokemonIdsForGeneration(genNumber) {
   return ids;
 }
 
+/**
+ * @description Renders a Pokémon card element.
+ * @param {Object} pokemonData - The data for the Pokémon to display.
+ * @returns {HTMLElement} The rendered Pokémon card element.
+ */
 function renderPokemonCard(pokemonData) {
   const card = document.createElement('div');
   card.classList.add('pokemon-card');
@@ -287,17 +398,31 @@ function renderPokemonCard(pokemonData) {
   return card;
 }
 
+/**
+ * @description Animates the appearance of a Pokémon card.
+ * @param {HTMLElement} card - The Pokémon card element.
+ * @param {number} delayIndex - The index used to stagger the animation.
+ */
 function animateCardAppearance(card, delayIndex) {
   setTimeout(() => {
     card.classList.add('visible');
   }, 80 * delayIndex);
 }
 
+/**
+ * @description Toggles the visibility of the loading screen.
+ * @param {boolean} show - Whether to show or hide the loading screen.
+ */
 function toggleLoadingScreen(show) {
   const loading = document.getElementById('loading-screen');
   loading.classList.toggle('hidden', !show);
 }
 
+/**
+ * @description Calculates the scale factor for a Pokémon card based on its height.
+ * @param {number} height - The height of the Pokémon.
+ * @returns {number} The scale factor to apply.
+ */
 function calculateScaleFactor(height) {
   if (height <= 6) return 1;
   if (height <= 10) return 1.3;
@@ -306,6 +431,9 @@ function calculateScaleFactor(height) {
   return 2.5;
 }
 
+/**
+ * @description Sets up the navigation for the Pokémon card overlay.
+ */
 function setupCardNavigation() {
   document.getElementById('next_btn').onclick = async () => {
     if (currentPokemonId < 1025) {
@@ -322,6 +450,9 @@ function setupCardNavigation() {
   };
 }
 
+/**
+ * @description Sets up the tab navigation for the Pokémon card overlay.
+ */
 function setupTabNavigation() {
   const tabButtons = document.querySelectorAll('.tab-btn');
   const tabSections = document.querySelectorAll('.tab-section');
@@ -350,6 +481,10 @@ function setupTabNavigation() {
   setActiveTab('tab-about');
 }
 
+/**
+ * @description Shows the Pokémon cards for a specific generation.
+ * @param {number} genNumber - The generation number.
+ */
 async function showGenerationPage(genNumber) {
   const output = document.getElementById('pokemon_output');
   const ids = getPokemonIdsForGeneration(genNumber);
@@ -371,6 +506,10 @@ async function showGenerationPage(genNumber) {
   setTimeout(() => toggleLoadingScreen(false), 2000);
 }
 
+/**
+ * @description Shows the Pokémon card for a specific Pokémon.
+ * @param {Object} pokemonData - The data for the Pokémon to display.
+ */
 function showPokemonCard(pokemonData) {
   const overlay = document.getElementById('pokemon_overlay');
   const main = document.querySelector('main');
@@ -399,6 +538,9 @@ function showPokemonCard(pokemonData) {
   }, 200);
 }
 
+/**
+ * @description Sets up the event handler for closing the Pokémon card overlay.
+ */
 function setupOverlayCloseHandler() {
   document.getElementById('pokemon_overlay').addEventListener('click', function (event) {
     const card = document.querySelector('.pokemon-detail-card-inner');
@@ -408,11 +550,18 @@ function setupOverlayCloseHandler() {
   });
 }
 
+/**
+ * @description Opens a Pokémon card from the search results.
+ * @param {number} id - The ID of the Pokémon to open.
+ */
 async function openPokemonFromSearch(id) {
   const data = await fetchPokemonData(id);
   if (data) showPokemonCard(data);
 }
 
+/**
+ * @description Reloads the current page.
+ */
 function reloadPage() {
   location.reload();
 }
