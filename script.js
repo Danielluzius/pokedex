@@ -1,4 +1,48 @@
 let allPokemon = [];
+let allPokemonIndex = [];
+let activeGeneration = 1;
+let currentPokemonId = null;
+
+const generationIdRanges = {
+  1: [1, 151],
+  2: [152, 251],
+  3: [252, 386],
+  4: [387, 493],
+  5: [494, 649],
+  6: [650, 721],
+  7: [722, 809],
+  8: [810, 905],
+  9: [906, 1025],
+};
+
+let currentPagePerGeneration = {
+  1: 0,
+  2: 0,
+  3: 0,
+  4: 0,
+  5: 0,
+  6: 0,
+  7: 0,
+  8: 0,
+  9: 0,
+};
+
+const pokemonPerPage = 20;
+
+const audio = document.getElementById('background-music');
+const button = document.getElementById('start_btn');
+const volumeSlider = document.getElementById('volume-slider');
+
+audio.volume = 0.2;
+audio.loop = true;
+
+button.addEventListener('click', function () {
+  audio.play();
+});
+
+volumeSlider.addEventListener('input', function () {
+  audio.volume = volumeSlider.value;
+});
 
 function init() {
   const header = document.getElementById('hero_header');
@@ -78,8 +122,6 @@ function closeOakUI() {
   }, 300);
 }
 
-let activeGeneration = 1;
-
 function showPokedexGenSection(genNumber) {
   const mainSection = document.getElementById('pokedex_main_section');
   const genSection = document.getElementById('pokedex_gen_section');
@@ -99,8 +141,6 @@ function closePokedexGenSection() {
   genSection.classList.remove('show');
   mainSection.classList.add('show');
 }
-
-let allPokemonIndex = [];
 
 async function loadAllPokemonIndex() {
   const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1300');
@@ -148,32 +188,6 @@ function searchPokemon() {
   oakLabel.textContent = 'Did you mean this Pokémon?';
   oakResult.innerHTML = getPokemonSearchResultHTML(match);
 }
-
-const generationIdRanges = {
-  1: [1, 151],
-  2: [152, 251],
-  3: [252, 386],
-  4: [387, 493],
-  5: [494, 649],
-  6: [650, 721],
-  7: [722, 809],
-  8: [810, 905],
-  9: [906, 1025],
-};
-
-let currentPagePerGeneration = {
-  1: 0,
-  2: 0,
-  3: 0,
-  4: 0,
-  5: 0,
-  6: 0,
-  7: 0,
-  8: 0,
-  9: 0,
-};
-
-const pokemonPerPage = 20;
 
 function getPokemonIdsForGeneration(genNumber) {
   const [startId, endId] = generationIdRanges[genNumber];
@@ -240,21 +254,6 @@ function showPreviousGenerationPage(genNumber) {
   }
 }
 
-const audio = document.getElementById('background-music');
-const button = document.getElementById('start_btn');
-const volumeSlider = document.getElementById('volume-slider');
-
-audio.volume = 0.2;
-audio.loop = true;
-
-button.addEventListener('click', function () {
-  audio.play();
-});
-
-volumeSlider.addEventListener('input', function () {
-  audio.volume = volumeSlider.value;
-});
-
 function showPokemonCard() {
   const overlay = document.getElementById('pokemon_overlay');
   const main = document.querySelector('main');
@@ -272,8 +271,6 @@ function closePokemonCard() {
   main.classList.remove('hidden');
   document.body.classList.remove('no-scroll');
 }
-
-let currentPokemonId = null;
 
 function getPokemonIdsForGeneration(genNumber) {
   const [startId, endId] = generationIdRanges[genNumber];
