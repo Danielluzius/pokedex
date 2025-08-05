@@ -2,9 +2,19 @@ function createPokemonCardHTML(pokemonData, image, scaleFactor) {
   const stats = pokemonData.stats;
 
   const aboutHTML = `
+            <div>
+        ${pokemonData.typeIcons
+          .map(
+            (icon, i) => `
+              <img src="${icon}" alt="${pokemonData.types[i]}" class="type-icon">
+            `
+          )
+          .join('')}
+      </div>
     <div class="about-box">
       <p class="about-text">${pokemonData.description}</p>
     </div>
+
   `;
 
   const statsHTML = /*html*/ `
