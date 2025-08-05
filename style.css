@@ -757,7 +757,7 @@ body.header-active footer {
 
 .pokemon-detail-card {
   position: relative;
-  width: clamp(300px, 90%, 720px);
+  width: clamp(300px, 90%, 600px);
   aspect-ratio: 3 / 4.2;
   background-image: url('./assets/img/pokedex_card.png');
   background-size: contain;
