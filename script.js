@@ -171,47 +171,55 @@ let currentPagePerGeneration = {
 
 const pokemonPerPage = 20;
 
-async function showGenerationPage(genNumber) {
-  const outputContainer = document.getElementById('pokemon_output');
-  const loadingScreen = document.getElementById('loading-screen');
-
+function getPokemonIdsForGeneration(genNumber) {
   const [startId, endId] = generationIdRanges[genNumber];
-  const allIds = [];
-  for (let i = startId; i <= endId; i++) {
-    allIds.push(i);
-  }
+  const ids = [];
+  for (let i = startId; i <= endId; i++) ids.push(i);
+  return ids;
+}
+
+function renderPokemonCard(pokemonData) {
+  const card = document.createElement('div');
+  card.classList.add('pokemon-card');
+  card.innerHTML = `
+    <p class="pokemon-nr">#${pokemonData.id}</p>
+    <img src="${pokemonData.sprites.front}" alt="${pokemonData.name}">
+    <p class="pokemon-name">${pokemonData.name.toUpperCase()}</p>
+  `;
+  card.onclick = () => showPokemonCard(pokemonData);
+  return card;
+}
+
+function animateCardAppearance(card, delayIndex) {
+  setTimeout(() => {
+    card.classList.add('visible');
+  }, 80 * delayIndex);
+}
+
+function toggleLoadingScreen(show) {
+  const loading = document.getElementById('loading-screen');
+  loading.classList.toggle('hidden', !show);
+}
+
+async function showGenerationPage(genNumber) {
+  const output = document.getElementById('pokemon_output');
+  const ids = getPokemonIdsForGeneration(genNumber);
 
   const currentPage = currentPagePerGeneration[genNumber];
   const startIndex = currentPage * pokemonPerPage;
   const endIndex = startIndex + pokemonPerPage;
 
-  loadingScreen.classList.remove('hidden');
-  outputContainer.innerHTML = '';
+  toggleLoadingScreen(true);
+  output.innerHTML = '';
 
-  for (let i = startIndex; i < endIndex && i < allIds.length; i++) {
-    const pokemonId = allIds[i];
-    const pokemonData = await fetchPokemonData(pokemonId);
-
-    const card = document.createElement('div');
-    card.classList.add('pokemon-card');
-    card.innerHTML = `
-      <p class="pokemon-nr">#${pokemonData.id}</p>
-      <img src="${pokemonData.sprites.front}" alt="${pokemonData.name}">
-      <p class="pokemon-name">${pokemonData.name.toUpperCase()}</p>
-    `;
-
-    card.onclick = () => showPokemonCard(pokemonData);
-
-    outputContainer.appendChild(card);
-
-    setTimeout(() => {
-      card.classList.add('visible');
-    }, 80 * (i - startIndex));
+  for (let i = startIndex; i < endIndex && i < ids.length; i++) {
+    const pokemon = await fetchPokemonData(ids[i]);
+    const card = renderPokemonCard(pokemon);
+    output.appendChild(card);
+    animateCardAppearance(card, i - startIndex);
   }
 
-  setTimeout(() => {
-    loadingScreen.classList.add('hidden');
-  }, 2000);
+  setTimeout(() => toggleLoadingScreen(false), 2000);
 }
 
 function showNextGenerationPage(genNumber) {
