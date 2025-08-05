@@ -350,18 +350,6 @@ function showPreviousGenerationPage(genNumber) {
 }
 
 /**
- * @description Creates the HTML for a Pokémon card.
- */
-function showPokemonCard() {
-  const overlay = document.getElementById('pokemon_overlay');
-  const main = document.querySelector('main');
-
-  overlay.classList.remove('hidden');
-  main.classList.add('hidden');
-  document.body.classList.add('no-scroll');
-}
-
-/**
  * @description Closes the Pokémon card overlay.
  */
 function closePokemonCard() {
@@ -371,51 +359,6 @@ function closePokemonCard() {
   overlay.classList.add('hidden');
   main.classList.remove('hidden');
   document.body.classList.remove('no-scroll');
-}
-
-/**
- * @description Gets the Pokémon IDs for a specific generation.
- * @param {number} genNumber - The generation number.
- * @returns {number[]} An array of Pokémon IDs for the specified generation.
- */
-function getPokemonIdsForGeneration(genNumber) {
-  const [startId, endId] = generationIdRanges[genNumber];
-  const ids = [];
-  for (let i = startId; i <= endId; i++) ids.push(i);
-  return ids;
-}
-
-/**
- * @description Renders a Pokémon card element.
- * @param {Object} pokemonData - The data for the Pokémon to display.
- * @returns {HTMLElement} The rendered Pokémon card element.
- */
-function renderPokemonCard(pokemonData) {
-  const card = document.createElement('div');
-  card.classList.add('pokemon-card');
-  card.innerHTML = getPokemonCardHTML(pokemonData);
-  card.onclick = () => showPokemonCard(pokemonData);
-  return card;
-}
-
-/**
- * @description Animates the appearance of a Pokémon card.
- * @param {HTMLElement} card - The Pokémon card element.
- * @param {number} delayIndex - The index used to stagger the animation.
- */
-function animateCardAppearance(card, delayIndex) {
-  setTimeout(() => {
-    card.classList.add('visible');
-  }, 80 * delayIndex);
-}
-
-/**
- * @description Toggles the visibility of the loading screen.
- * @param {boolean} show - Whether to show or hide the loading screen.
- */
-function toggleLoadingScreen(show) {
-  const loading = document.getElementById('loading-screen');
-  loading.classList.toggle('hidden', !show);
 }
 
 /**
@@ -482,31 +425,6 @@ function setupTabNavigation() {
 }
 
 /**
- * @description Shows the Pokémon cards for a specific generation.
- * @param {number} genNumber - The generation number.
- */
-async function showGenerationPage(genNumber) {
-  const output = document.getElementById('pokemon_output');
-  const ids = getPokemonIdsForGeneration(genNumber);
-
-  const currentPage = currentPagePerGeneration[genNumber];
-  const startIndex = currentPage * pokemonPerPage;
-  const endIndex = startIndex + pokemonPerPage;
-
-  toggleLoadingScreen(true);
-  output.innerHTML = '';
-
-  for (let i = startIndex; i < endIndex && i < ids.length; i++) {
-    const pokemon = await fetchPokemonData(ids[i]);
-    const card = renderPokemonCard(pokemon);
-    output.appendChild(card);
-    animateCardAppearance(card, i - startIndex);
-  }
-
-  setTimeout(() => toggleLoadingScreen(false), 2000);
-}
-
-/**
  * @description Shows the Pokémon card for a specific Pokémon.
  * @param {Object} pokemonData - The data for the Pokémon to display.
  */
@@ -517,11 +435,11 @@ function showPokemonCard(pokemonData) {
 
   overlay.classList.remove('hidden');
   main.classList.add('hidden');
+  document.body.classList.add('no-scroll');
 
   const image = pokemonData.sprites.officialArtwork;
   currentPokemonId = pokemonData.id;
   const scaleFactor = calculateScaleFactor(pokemonData.height);
-
   card.classList.remove('visible');
 
   setTimeout(() => {
