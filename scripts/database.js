@@ -1,87 +1,84 @@
 async function fetchPokemonData(nameOrId) {
-  const apiUrl = 'https://pokeapi.co/api/v2/pokemon/' + String(nameOrId).toLowerCase();
-
   try {
-    const response = await fetch(apiUrl);
-    if (!response.ok) throw new Error('Pokémon not found');
-    const data = await response.json();
+    const d = await fetchDataFromUrl(`https://pokeapi.co/api/v2/pokemon/${String(nameOrId).toLowerCase()}`);
+    const id = d.id,
+      name = d.name;
 
-    const id = data.id;
-    const name = data.name;
-    const height = data.height;
-    const weight = data.weight;
-
-    const types = [];
-    const typeIcons = [];
-    for (let i = 0; i < data.types.length; i++) {
-      const typeName = data.types[i].type.name;
-      types.push(typeName);
-      typeIcons.push('./assets/img/icon/types/' + typeName + '.png');
-    }
-
-    const abilities = [];
-    for (let i = 0; i < data.abilities.length; i++) {
-      abilities.push(data.abilities[i].ability.name);
-    }
-
-    let hp = 0,
-      attack = 0,
-      defense = 0,
-      specialAttack = 0,
-      specialDefense = 0,
-      speed = 0;
-    for (let i = 0; i < data.stats.length; i++) {
-      const statName = data.stats[i].stat.name;
-      const baseStat = data.stats[i].base_stat;
-      if (statName === 'hp') hp = baseStat;
-      else if (statName === 'attack') attack = baseStat;
-      else if (statName === 'defense') defense = baseStat;
-      else if (statName === 'special-attack') specialAttack = baseStat;
-      else if (statName === 'special-defense') specialDefense = baseStat;
-      else if (statName === 'speed') speed = baseStat;
-    }
-
-    const spriteName = name.toLowerCase();
-    const animatedFront = `https://play.pokemonshowdown.com/sprites/gen5ani/${spriteName}.gif`;
-    const officialArtwork = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
-
-    const sprites = {
-      front: data.sprites.front_default,
-      back: data.sprites.back_default,
-      officialArtwork,
-      animatedFront,
-    };
-
-    const speciesUrl = `https://pokeapi.co/api/v2/pokemon-species/${id}/`;
-    const speciesResponse = await fetch(speciesUrl);
-    const speciesData = await speciesResponse.json();
-
-    const englishEntry = speciesData.flavor_text_entries.find((entry) => entry.language.name === 'en');
-    const description = englishEntry
-      ? englishEntry.flavor_text.replace(/\f/g, ' ').replace(/\n/g, ' ')
-      : 'No description available.';
+    const species = await fetchDataFromUrl(`https://pokeapi.co/api/v2/pokemon-species/${id}/`);
 
     return {
       id,
       name,
-      types,
-      typeIcons,
-      abilities,
-      stats: {
-        hp,
-        attack,
-        defense,
-        specialAttack,
-        specialDefense,
-        speed,
-      },
-      height,
-      weight,
-      sprites,
-      description,
+      height: d.height,
+      weight: d.weight,
+      types: extractTypes(d).names,
+      typeIcons: extractTypes(d).icons,
+      abilities: extractAbilities(d),
+      stats: extractStats(d),
+      sprites: buildSprites(d, id, name),
+      description: extractDescription(species),
     };
-  } catch (error) {
-    console.error('Error fetching Pokémon data:', error);
+  } catch (err) {
+    console.error('Error fetching Pokémon data:', err);
     return null;
   }
+}
+
+async function fetchDataFromUrl(url) {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error(`Request failed: ${url}`);
+  return response.json();
+}
+
+function extractTypes(data) {
+  const names = [];
+  const icons = [];
+  for (let t of data.types) {
+    const type = t.type.name;
+    names.push(type);
+    icons.push(`./assets/img/icon/types/${type}.png`);
+  }
+  return { names, icons };
+}
+
+function extractAbilities(data) {
+  return data.abilities.map((a) => a.ability.name);
+}
+
+function extractStats(data) {
+  const stats = {
+    hp: 0,
+    attack: 0,
+    defense: 0,
+    specialAttack: 0,
+    specialDefense: 0,
+    speed: 0,
+  };
+  for (let s of data.stats) {
+    const n = s.stat.name,
+      v = s.base_stat;
+    if (n === 'hp') stats.hp = v;
+    else if (n === 'attack') stats.attack = v;
+    else if (n === 'defense') stats.defense = v;
+    else if (n === 'special-attack') stats.specialAttack = v;
+    else if (n === 'special-defense') stats.specialDefense = v;
+    else if (n === 'speed') stats.speed = v;
+  }
+  return stats;
+}
+
+function buildSprites(data, id, name) {
+  const base = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/';
+  const gifBase = 'https://play.pokemonshowdown.com/sprites/gen5ani/';
+  return {
+    front: data.sprites.front_default,
+    back: data.sprites.back_default,
+    officialArtwork: `${base}${id}.png`,
+    animatedFront: `${gifBase}${name.toLowerCase()}.gif`,
+  };
+}
+
+function extractDescription(speciesData) {
+  const entry = speciesData.flavor_text_entries.find((e) => e.language.name === 'en');
+  return entry ? entry.flavor_text.replace(/\f/g, ' ').replace(/\n/g, ' ') : 'No description available.';
 }

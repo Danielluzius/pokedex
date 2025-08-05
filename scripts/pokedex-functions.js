@@ -121,6 +121,7 @@ async function showGenerationPage(genNumber) {
   }
 
   setTimeout(() => toggleLoadingScreen(false), 2000);
+  updateGenNavButtons(genNumber);
 }
 
 /**
@@ -313,4 +314,26 @@ function searchPokemon() {
 
   oakLabel.textContent = 'Did you mean this Pokémon?';
   oakResult.innerHTML = getPokemonSearchResultHTML(match);
+}
+
+function updateGenNavButtons(genNumber) {
+  const [startId, endId] = generationIdRanges[genNumber];
+  const totalPokemon = endId - startId + 1;
+  const maxPages = Math.ceil(totalPokemon / pokemonPerPage);
+  const currentPage = currentPagePerGeneration[genNumber];
+
+  const leftArrow = document.getElementById('left_arrow');
+  const rightArrow = document.getElementById('right_arrow');
+
+  if (currentPage === 0) {
+    leftArrow.classList.add('disabled');
+  } else {
+    leftArrow.classList.remove('disabled');
+  }
+
+  if (currentPage >= maxPages - 1) {
+    rightArrow.classList.add('disabled');
+  } else {
+    rightArrow.classList.remove('disabled');
+  }
 }
