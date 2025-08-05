@@ -1,8 +1,8 @@
 function createPokemonCardHTML(pokemonData, image, scaleFactor) {
   const stats = pokemonData.stats;
 
-  const aboutHTML = `
-            <div>
+  const aboutHTML = /*html*/ `
+      <div>
         ${pokemonData.typeIcons
           .map(
             (icon, i) => `
@@ -68,11 +68,32 @@ function createPokemonCardHTML(pokemonData, image, scaleFactor) {
   `;
 }
 
+function getPokemonCardHTML(pokemon) {
+  return /*html*/ `
+    <p class="pokemon-nr">#${pokemon.id}</p>
+    <img src="${pokemon.sprites.front}" alt="${pokemon.name}">
+    <p class="pokemon-name">${pokemon.name.toUpperCase()}</p>
+  `;
+}
+
 function getPokemonSearchResultHTML(pokemon) {
-  return `
+  return /*html*/ `
     <div class="oak-pokemon-result" onclick="openPokemonFromSearch(${pokemon.id})">
       <img src="${pokemon.sprite}" alt="${pokemon.name}">
       <p class="oak-pokemon-name">${pokemon.name.toUpperCase()}</p>
     </div>
   `;
+}
+
+function getPokemonCardHTML(pokemon) {
+  return /*html*/ `
+    <p class="pokemon-nr">#${pokemon.id}</p>
+    <img src="${pokemon.sprites.front}" alt="${pokemon.name}">
+    <p class="pokemon-name">${pokemon.name.toUpperCase()}</p>
+  `;
+}
+
+function getSearchMessageHTML(message) {
+  return /*html*/ `
+    <span class="oak-msg">${message}</span>`;
 }

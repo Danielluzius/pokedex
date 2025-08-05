@@ -121,7 +121,7 @@ function renderSearchMessage(message) {
   const oakResult = document.getElementById('oak_result');
   const oakLabel = document.getElementById('oak_result_label');
   oakLabel.textContent = '';
-  oakResult.innerHTML = `<span class="oak-msg">${message}</span>`;
+  oakResult.innerHTML = getSearchMessageHTML(message);
 }
 
 function searchPokemon() {
@@ -185,11 +185,7 @@ function getPokemonIdsForGeneration(genNumber) {
 function renderPokemonCard(pokemonData) {
   const card = document.createElement('div');
   card.classList.add('pokemon-card');
-  card.innerHTML = `
-    <p class="pokemon-nr">#${pokemonData.id}</p>
-    <img src="${pokemonData.sprites.front}" alt="${pokemonData.name}">
-    <p class="pokemon-name">${pokemonData.name.toUpperCase()}</p>
-  `;
+  card.innerHTML = getPokemonCardHTML(pokemonData);
   card.onclick = () => showPokemonCard(pokemonData);
   return card;
 }
@@ -279,8 +275,6 @@ function closePokemonCard() {
 
 let currentPokemonId = null;
 
-// --- Hilfsfunktionen ---
-
 function getPokemonIdsForGeneration(genNumber) {
   const [startId, endId] = generationIdRanges[genNumber];
   const ids = [];
@@ -291,11 +285,7 @@ function getPokemonIdsForGeneration(genNumber) {
 function renderPokemonCard(pokemonData) {
   const card = document.createElement('div');
   card.classList.add('pokemon-card');
-  card.innerHTML = `
-    <p class="pokemon-nr">#${pokemonData.id}</p>
-    <img src="${pokemonData.sprites.front}" alt="${pokemonData.name}">
-    <p class="pokemon-name">${pokemonData.name.toUpperCase()}</p>
-  `;
+  card.innerHTML = getPokemonCardHTML(pokemonData);
   card.onclick = () => showPokemonCard(pokemonData);
   return card;
 }
@@ -362,8 +352,6 @@ function setupTabNavigation() {
   showTab('about-section');
   setActiveTab('tab-about');
 }
-
-// --- Hauptfunktionen ---
 
 async function showGenerationPage(genNumber) {
   const output = document.getElementById('pokemon_output');
