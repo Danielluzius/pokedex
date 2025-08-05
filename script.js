@@ -4,6 +4,7 @@ function init() {
   const header = document.getElementById('hero_header');
   header.classList.add('visible');
   loadAllPokemonIndex();
+  setupOverlayCloseHandler();
 }
 
 function showMainContent() {
@@ -413,26 +414,18 @@ function showPokemonCard(pokemonData) {
   }, 200);
 }
 
-document.getElementById('pokemon_overlay').addEventListener('click', function (event) {
-  const card = document.querySelector('.pokemon-detail-card-inner');
-  if (!card.contains(event.target)) {
-    closePokemonCard();
-  }
-});
-
-document.getElementById('pokemon_overlay').addEventListener('click', function (event) {
-  const card = document.querySelector('.pokemon-detail-card-inner');
-  if (!card.contains(event.target)) {
-    closePokemonCard();
-  }
-});
-
-function openPokemonFromSearch(id) {
-  fetchPokemonData(id).then(function (data) {
-    if (data) {
-      showPokemonCard(data);
+function setupOverlayCloseHandler() {
+  document.getElementById('pokemon_overlay').addEventListener('click', function (event) {
+    const card = document.querySelector('.pokemon-detail-card-inner');
+    if (!card.contains(event.target)) {
+      closePokemonCard();
     }
   });
+}
+
+async function openPokemonFromSearch(id) {
+  const data = await fetchPokemonData(id);
+  if (data) showPokemonCard(data);
 }
 
 function reloadPage() {
