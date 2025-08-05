@@ -275,6 +275,113 @@ function closePokemonCard() {
 
 let currentPokemonId = null;
 
+// --- Hilfsfunktionen ---
+
+function getPokemonIdsForGeneration(genNumber) {
+  const [startId, endId] = generationIdRanges[genNumber];
+  const ids = [];
+  for (let i = startId; i <= endId; i++) ids.push(i);
+  return ids;
+}
+
+function renderPokemonCard(pokemonData) {
+  const card = document.createElement('div');
+  card.classList.add('pokemon-card');
+  card.innerHTML = `
+    <p class="pokemon-nr">#${pokemonData.id}</p>
+    <img src="${pokemonData.sprites.front}" alt="${pokemonData.name}">
+    <p class="pokemon-name">${pokemonData.name.toUpperCase()}</p>
+  `;
+  card.onclick = () => showPokemonCard(pokemonData);
+  return card;
+}
+
+function animateCardAppearance(card, delayIndex) {
+  setTimeout(() => {
+    card.classList.add('visible');
+  }, 80 * delayIndex);
+}
+
+function toggleLoadingScreen(show) {
+  const loading = document.getElementById('loading-screen');
+  loading.classList.toggle('hidden', !show);
+}
+
+function calculateScaleFactor(height) {
+  if (height <= 6) return 1;
+  if (height <= 10) return 1.3;
+  if (height <= 15) return 1.6;
+  if (height <= 20) return 2.3;
+  return 2.5;
+}
+
+function setupCardNavigation() {
+  document.getElementById('next_btn').onclick = async () => {
+    if (currentPokemonId < 1025) {
+      const next = await fetchPokemonData(currentPokemonId + 1);
+      if (next) showPokemonCard(next);
+    }
+  };
+
+  document.getElementById('back_btn').onclick = async () => {
+    if (currentPokemonId > 1) {
+      const prev = await fetchPokemonData(currentPokemonId - 1);
+      if (prev) showPokemonCard(prev);
+    }
+  };
+}
+
+function setupTabNavigation() {
+  const tabButtons = document.querySelectorAll('.tab-btn');
+  const tabSections = document.querySelectorAll('.tab-section');
+
+  function showTab(tabId) {
+    tabSections.forEach((section) => section.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+  }
+
+  function setActiveTab(buttonId) {
+    tabButtons.forEach((btn) => btn.classList.remove('active'));
+    document.getElementById(buttonId).classList.add('active');
+  }
+
+  document.getElementById('tab-about').addEventListener('click', () => {
+    showTab('about-section');
+    setActiveTab('tab-about');
+  });
+
+  document.getElementById('tab-stats').addEventListener('click', () => {
+    showTab('stats-section');
+    setActiveTab('tab-stats');
+  });
+
+  showTab('about-section');
+  setActiveTab('tab-about');
+}
+
+// --- Hauptfunktionen ---
+
+async function showGenerationPage(genNumber) {
+  const output = document.getElementById('pokemon_output');
+  const ids = getPokemonIdsForGeneration(genNumber);
+
+  const currentPage = currentPagePerGeneration[genNumber];
+  const startIndex = currentPage * pokemonPerPage;
+  const endIndex = startIndex + pokemonPerPage;
+
+  toggleLoadingScreen(true);
+  output.innerHTML = '';
+
+  for (let i = startIndex; i < endIndex && i < ids.length; i++) {
+    const pokemon = await fetchPokemonData(ids[i]);
+    const card = renderPokemonCard(pokemon);
+    output.appendChild(card);
+    animateCardAppearance(card, i - startIndex);
+  }
+
+  setTimeout(() => toggleLoadingScreen(false), 2000);
+}
+
 function showPokemonCard(pokemonData) {
   const overlay = document.getElementById('pokemon_overlay');
   const main = document.querySelector('main');
@@ -285,13 +392,7 @@ function showPokemonCard(pokemonData) {
 
   const image = pokemonData.sprites.officialArtwork;
   currentPokemonId = pokemonData.id;
-
-  let scaleFactor = 1;
-  if (pokemonData.height <= 6) scaleFactor = 1;
-  else if (pokemonData.height <= 10) scaleFactor = 1.3;
-  else if (pokemonData.height <= 15) scaleFactor = 1.6;
-  else if (pokemonData.height <= 20) scaleFactor = 2.3;
-  else scaleFactor = 2.5;
+  const scaleFactor = calculateScaleFactor(pokemonData.height);
 
   card.classList.remove('visible');
 
@@ -304,45 +405,8 @@ function showPokemonCard(pokemonData) {
       card.classList.add('visible');
     };
 
-    document.getElementById('next_btn').onclick = async () => {
-      if (currentPokemonId < 1025) {
-        const nextPokemonData = await fetchPokemonData(currentPokemonId + 1);
-        if (nextPokemonData) showPokemonCard(nextPokemonData);
-      }
-    };
-
-    document.getElementById('back_btn').onclick = async () => {
-      if (currentPokemonId > 1) {
-        const prevPokemonData = await fetchPokemonData(currentPokemonId - 1);
-        if (prevPokemonData) showPokemonCard(prevPokemonData);
-      }
-    };
-
-    const tabButtons = document.querySelectorAll('.tab-btn');
-    const tabSections = document.querySelectorAll('.tab-section');
-
-    function showTab(tabId) {
-      tabSections.forEach((section) => section.classList.remove('active'));
-      document.getElementById(tabId).classList.add('active');
-    }
-
-    function setActiveTab(buttonId) {
-      tabButtons.forEach((btn) => btn.classList.remove('active'));
-      document.getElementById(buttonId).classList.add('active');
-    }
-
-    document.getElementById('tab-about').addEventListener('click', () => {
-      showTab('about-section');
-      setActiveTab('tab-about');
-    });
-
-    document.getElementById('tab-stats').addEventListener('click', () => {
-      showTab('stats-section');
-      setActiveTab('tab-stats');
-    });
-
-    showTab('about-section');
-    setActiveTab('tab-about');
+    setupCardNavigation();
+    setupTabNavigation();
   }, 200);
 }
 
