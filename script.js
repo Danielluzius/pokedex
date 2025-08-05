@@ -253,6 +253,7 @@ function showPokemonCard() {
 
   overlay.classList.remove('hidden');
   main.classList.add('hidden');
+  document.body.classList.add('no-scroll');
 }
 
 function closePokemonCard() {
@@ -261,6 +262,7 @@ function closePokemonCard() {
 
   overlay.classList.add('hidden');
   main.classList.remove('hidden');
+  document.body.classList.remove('no-scroll');
 }
 
 let currentPokemonId = null;
@@ -356,4 +358,8 @@ function openPokemonFromSearch(id) {
       showPokemonCard(data);
     }
   });
+}
+
+function reloadPage() {
+  location.reload();
 }

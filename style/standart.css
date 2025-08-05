@@ -16,6 +16,7 @@ body {
   color: #fff;
   background: #19202a url('../assets/img/animated_bg.svg') no-repeat center center fixed;
   background-size: cover;
+  overflow-x: hidden;
 }
 
 .page-wrapper {
@@ -34,6 +35,7 @@ footer {
 }
 
 main {
+  overflow: auto;
   flex: 1;
 }
 
@@ -41,6 +43,29 @@ main {
   max-width: 1440px;
   margin: 0 auto;
   padding: 20px 30px;
+}
+
+/* Scrollbar Styles */
+body::-webkit-scrollbar {
+  width: 8px;
+}
+
+body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+body {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
 }
 
 /* Responsive Anpassung */

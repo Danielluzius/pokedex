@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pokedex</title>
+    <title>Oak's Laboratory</title>
     <link rel="icon" type="image/png" href="./assets/img/favicon/favicon.svg" />
 
     <link rel="stylesheet" href="./style.css" />
@@ -34,7 +34,7 @@
                 <h1 class="main-heading">Professor Oak's Lab</h1>
                 <span class="main-top-heading">Your personal Pokémon Database</span>
                 <div>
-                    <p class="main-text">You're looking for specific Pokémon information? well.. <br> YOU'VE COME TO THE
+                    <p class="main-text">You're looking for specific Pokémon information? Well.. <br> YOU'VE COME TO THE
                         RIGHT PLACE!</p>
                 </div>
 
@@ -47,7 +47,9 @@
 
         <main class="hidden">
             <div class="section-wrapper fade-in">
-                <h1 class="main-heading2">Professor Oak's Lab</h1>
+                <h1 class="main-heading2" onclick="reloadPage()" style="cursor: pointer;">
+                    Professor Oak's Lab
+                </h1>
                 <h3 class="main-subheading">Your personal Pokémon Database</h3>
                 <div class="center-wrapper">
                     <div class="volume-slider-wrapper">
@@ -86,7 +88,7 @@
                                     </div>
                                 </div>
                                 <div class="oak-input-wrapper">
-                                    <input id="oak_search" type="text" placeholder="Pokémon research..."
+                                    <input id="oak_search" type="text" placeholder="Type a Pokemon name..."
                                         oninput="searchPokemon()">
                                     <img src="./assets/img/oak_img.webp" class="professor-img">
                                 </div>

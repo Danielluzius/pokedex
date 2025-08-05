@@ -59,7 +59,6 @@
   font-size: clamp(1rem, 7vw, 4rem);
   color: #fef9eb;
   text-align: center;
-  margin-bottom: 10px;
   white-space: nowrap;
 }
 
@@ -68,8 +67,13 @@
   font-size: clamp(1.3rem, 4vw, 4.5rem);
   color: #fef9eb;
   text-align: center;
-  margin-bottom: 10px;
   white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.main-heading2:hover {
+  color: #dccaa0;
 }
 
 .main-top-heading {
@@ -108,11 +112,12 @@ body.header-active footer {
 
 .laboratory-info {
   font-family: 'VT323', monospace;
-  font-size: clamp(0.6rem, 2vw, 1.2rem);
+  font-size: clamp(0.6rem, 4vw, 1.4rem);
   color: #fef9eb;
   text-align: center;
   margin-top: 10px;
   padding: 0 20px;
+  line-height: 0.9;
 }
 
 .oak-btn {
@@ -377,7 +382,7 @@ body.header-active footer {
 }
 
 #monitor_section {
-  position: relative; /* Wichtig für absolute Positionierung innerhalb */
+  position: relative;
   opacity: 0;
   max-height: 0;
   overflow: hidden;
@@ -387,7 +392,7 @@ body.header-active footer {
 
 #monitor_section.show {
   opacity: 1;
-  max-height: 1000px; /* Genug Platz für den Monitor + Leiste */
+  max-height: 1000px;
   pointer-events: auto;
 }
 
@@ -1005,4 +1010,8 @@ body.header-active footer {
 
 .stats-container p {
   margin: 4px 0;
+}
+
+.no-scroll {
+  overflow: hidden;
 }
