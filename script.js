@@ -425,18 +425,24 @@ function setupTabNavigation() {
 }
 
 /**
+ * @description Prepares the UI for the Pokémon card overlay.
+ * Hides the main content and shows the overlay.
+ */
+function prepareOverlayUI() {
+  const overlay = document.getElementById('pokemon_overlay');
+  const main = document.querySelector('main');
+  overlay.classList.remove('hidden');
+  main.classList.add('hidden');
+  document.body.classList.add('no-scroll');
+}
+
+/**
  * @description Shows the Pokémon card for a specific Pokémon.
  * @param {Object} pokemonData - The data for the Pokémon to display.
  */
 function showPokemonCard(pokemonData) {
-  const overlay = document.getElementById('pokemon_overlay');
-  const main = document.querySelector('main');
+  prepareOverlayUI();
   const card = document.querySelector('.pokemon-detail-card-inner');
-
-  overlay.classList.remove('hidden');
-  main.classList.add('hidden');
-  document.body.classList.add('no-scroll');
-
   const image = pokemonData.sprites.officialArtwork;
   currentPokemonId = pokemonData.id;
   const scaleFactor = calculateScaleFactor(pokemonData.height);
@@ -444,13 +450,11 @@ function showPokemonCard(pokemonData) {
 
   setTimeout(() => {
     card.innerHTML = createPokemonCardHTML(pokemonData, image, scaleFactor);
-
     const cardImage = document.getElementById('cardImage');
     cardImage.onload = () => {
       cardImage.classList.add('loaded');
       card.classList.add('visible');
     };
-
     setupCardNavigation();
     setupTabNavigation();
   }, 200);
