@@ -1,8 +1,15 @@
+/** Global variables and constants for the Pokédex application.
+ * This file contains the main application state, including all Pokémon data,
+ */
 let allPokemon = [];
 let allPokemonIndex = [];
 let activeGeneration = 1;
 let currentPokemonId = null;
 
+/**
+ * @description Ranges of Pokémon IDs for each generation.
+ * Used to determine which Pokémon belong to which generation.
+ */
 const generationIdRanges = {
   1: [1, 151],
   2: [152, 251],
@@ -15,6 +22,10 @@ const generationIdRanges = {
   9: [906, 1025],
 };
 
+/**
+ * @description Keeps track of the current page for each generation.
+ * Used for pagination in the Pokédex.
+ */
 let currentPagePerGeneration = {
   1: 0,
   2: 0,
@@ -27,8 +38,15 @@ let currentPagePerGeneration = {
   9: 0,
 };
 
+/**
+ * @description Number of Pokémon displayed per page in the Pokédex.
+ */
 const pokemonPerPage = 20;
 
+/**
+ * @description Handles audio playback and volume control.
+ * @module audioPlayer
+ */
 const audio = document.getElementById('background-music');
 const button = document.getElementById('start_btn');
 const volumeSlider = document.getElementById('volume-slider');
