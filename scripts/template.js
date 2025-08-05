@@ -67,3 +67,12 @@ function createPokemonCardHTML(pokemonData, image, scaleFactor) {
     <img src="./assets/img/icon/button/right_arrow.png" alt="Next" class="next-btn" id="next_btn">
   `;
 }
+
+function getPokemonSearchResultHTML(pokemon) {
+  return `
+    <div class="oak-pokemon-result" onclick="openPokemonFromSearch(${pokemon.id})">
+      <img src="${pokemon.sprite}" alt="${pokemon.name}">
+      <p class="oak-pokemon-name">${pokemon.name.toUpperCase()}</p>
+    </div>
+  `;
+}

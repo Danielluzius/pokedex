@@ -112,8 +112,19 @@ async function loadAllPokemonIndex() {
   }));
 }
 
+function getSearchInput() {
+  return document.getElementById('oak_search').value.toLowerCase().trim();
+}
+
+function renderSearchMessage(message) {
+  const oakResult = document.getElementById('oak_result');
+  const oakLabel = document.getElementById('oak_result_label');
+  oakLabel.textContent = '';
+  oakResult.innerHTML = `<span class="oak-msg">${message}</span>`;
+}
+
 function searchPokemon() {
-  const input = document.getElementById('oak_search').value.toLowerCase().trim();
+  const input = getSearchInput();
   const oakResultBox = document.querySelector('.oak-result-box');
   const oakLabel = document.getElementById('oak_result_label');
   const oakResult = document.getElementById('oak_result');
@@ -122,27 +133,19 @@ function searchPokemon() {
   oakResultBox.style.display = 'block';
 
   if (input.length < 3) {
-    oakLabel.textContent = '';
-    oakResult.innerHTML = '<span class="oak-msg">Please enter at least 3 characters.</span>';
+    renderSearchMessage('Please enter at least 3 characters.');
     return;
   }
 
   const match = allPokemonIndex.find((p) => p.name.toLowerCase().includes(input));
 
   if (!match) {
-    oakLabel.textContent = '';
-    oakResult.innerHTML = '<span class="oak-msg">No results found.</span>';
+    renderSearchMessage('No results found.');
     return;
   }
 
   oakLabel.textContent = 'Did you mean this Pokémon?';
-
-  oakResult.innerHTML = `
-    <div class="oak-pokemon-result" onclick="openPokemonFromSearch(${match.id})">
-      <img src="${match.sprite}" alt="${match.name}">
-      <p class="oak-pokemon-name">${match.name.toUpperCase()}</p>
-    </div>
-  `;
+  oakResult.innerHTML = getPokemonSearchResultHTML(match);
 }
 
 const generationIdRanges = {
