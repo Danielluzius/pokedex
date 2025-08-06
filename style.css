@@ -880,6 +880,13 @@ body.header-active footer {
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
+.back-btn.disabled,
+.next-btn.disabled {
+  opacity: 0.4;
+  pointer-events: none;
+  filter: grayscale(100%);
+}
+
 .card-types {
   position: absolute;
   bottom: 12%;
@@ -1020,4 +1027,13 @@ body.header-active footer {
 
 .no-scroll {
   overflow: hidden;
+}
+
+/* ========== FOOTER ========== */
+
+.footer-logo-wrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px;
 }

@@ -166,7 +166,7 @@ function prepareOverlayUI() {
  * @description Shows the Pokémon card for a specific Pokémon.
  * @param {Object} pokemonData - The data for the Pokémon to display.
  */
-function showPokemonCard(pokemonData) {
+function showPokemonCard(pokemonData, disableNavigation = false) {
   prepareOverlayUI();
   const card = document.querySelector('.pokemon-detail-card-inner');
   const image = pokemonData.sprites.officialArtwork;
@@ -176,6 +176,10 @@ function showPokemonCard(pokemonData) {
 
   setTimeout(() => {
     card.innerHTML = createPokemonCardHTML(pokemonData, image, scaleFactor);
+    if (disableNavigation) {
+      document.getElementById('back_btn').style.display = 'none';
+      document.getElementById('next_btn').style.display = 'none';
+    }
     const cardImage = document.getElementById('cardImage');
     cardImage.onload = () => {
       cardImage.classList.add('loaded');
@@ -183,7 +187,28 @@ function showPokemonCard(pokemonData) {
     };
     setupCardNavigation();
     setupTabNavigation();
+    updateCardNavButtons();
   }, 200);
+}
+
+function updateCardNavButtons() {
+  const backBtn = document.getElementById('back_btn');
+  const nextBtn = document.getElementById('next_btn');
+
+  const pageStart = currentPagePerGeneration[activeGeneration] * pokemonPerPage + 1;
+  const pageEnd = pageStart + pokemonPerPage - 1;
+
+  if (currentPokemonId <= pageStart) {
+    backBtn.classList.add('disabled');
+  } else {
+    backBtn.classList.remove('disabled');
+  }
+
+  if (currentPokemonId >= pageEnd) {
+    nextBtn.classList.add('disabled');
+  } else {
+    nextBtn.classList.remove('disabled');
+  }
 }
 
 /**
@@ -266,7 +291,7 @@ function setupOverlayCloseHandler() {
  */
 async function openPokemonFromSearch(id) {
   const data = await fetchPokemonData(id);
-  if (data) showPokemonCard(data);
+  if (data) showPokemonCard(data, true);
 }
 
 /**
